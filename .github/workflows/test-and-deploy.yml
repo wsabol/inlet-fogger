@@ -39,7 +39,7 @@ jobs:
 
   check-lib-changes:
     name: Check for lib/* changes
-#    needs: test
+    needs: test
     runs-on: ubuntu-latest
 
     outputs:
