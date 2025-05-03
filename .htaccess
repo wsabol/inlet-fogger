@@ -1,0 +1,6 @@
+# Auto-prepend for dev env
+<IfModule mod_php.c>
+    <If "-e '/var/www/html/includes/bootstrap.php'">
+        php_value auto_prepend_file /var/www/html/includes/bootstrap.php
+    </If>
+</IfModule>
