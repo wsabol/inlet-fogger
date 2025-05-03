@@ -1,0 +1,28 @@
+# environment file
+.env
+/.htaccess
+/.user.ini
+
+# os/plugin cache files
+.DS_Store
+.php-cs-fixer.cache
+php_errorlog
+.well-known
+.well-known/*
+
+# Composer
+vendor
+vendor/*
+/vendor
+/vendor/*
+
+# npm
+lib/node_modules
+lib/node_modules/*
+js/*
+/js/app.dev.js
+/js/*.js
+/js/*.txt
+/js/*.map
+css/*
+/css/*.css
