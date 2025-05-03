@@ -30,6 +30,13 @@ class PageController {
     }
 
     /**
+     * @return array
+     */
+    public function get_twig_context(): array {
+        return $this->twig_context;
+    }
+
+    /**
      * Render twig template
      */
     public function render(string $path, array $additional_context = []): void {
