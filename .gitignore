@@ -1,6 +1,5 @@
 # environment file
 .env
-/.htaccess
 /.user.ini
 
 # os/plugin cache files
