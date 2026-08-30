@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-ink: #0b0e14;
+  --color-ink-2: #11151f;
+  --color-panel: #121821;
+  --color-line: #2a3340;
+  --color-muted: #8b93a7;
+  --color-cream: #e8e4d9;
+  --color-gold: #c5a572;
+  --color-gold-2: #d4af37;
+  --color-cyan: #4fd1d9;
+  --color-heat: #e08a4a;
+  --color-air: #9eb6d4;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-gold) 40%, transparent);
+}
+
+.grid-hero {
+  background-color: var(--color-ink);
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, #4a6a8a 12%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, #4a6a8a 12%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+input[type="range"] {
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: var(--color-line);
+  border-radius: 999px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--color-gold);
+  cursor: pointer;
+  border: none;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--color-gold);
+  cursor: pointer;
+  border: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: textfield;
+}
+
+@media (min-width: 768px) {
+  details.input-group > :not(summary) {
+    display: block !important;
+  }
+
+  details.input-group > summary {
+    pointer-events: none;
+    list-style: none;
+  }
+
+  details.input-group > summary::-webkit-details-marker {
+    display: none;
+  }
+}
