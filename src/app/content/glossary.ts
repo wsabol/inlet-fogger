@@ -14,11 +14,6 @@ export const GLOSSARY = {
     href: "/how-it-works#psychrometrics",
     meaning: "How close the air already is to saturation, expressed as a percentage.",
   },
-  "approach-to-wet-bulb": {
-    term: "Approach to wet bulb",
-    href: "/how-it-works#psychrometrics",
-    meaning: "How closely the fogged airstream gets to the wet-bulb limit before the compressor.",
-  },
   smd: {
     term: "SMD / D32",
     href: "/how-it-works#droplet-size",
@@ -48,6 +43,16 @@ export const GLOSSARY = {
     term: "Liquid fallout",
     href: "/guide#fallout",
     meaning: "Droplets that drop out of the airstream onto ducts, filters, or drains rather than evaporating.",
+  },
+  "latent-heat": {
+    term: "Latent-heat",
+    href: "/how-it-works#evaporation",
+    meaning: "The energy absorbed as liquid becomes vapor.",
+  },
+  "convection": {
+    term: "Convection",
+    href: "/how-it-works#evaporation",
+    meaning: "The transfer of heat between fluids of different temperatures.",
   },
 } as const;
 

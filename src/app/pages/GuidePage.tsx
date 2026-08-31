@@ -78,14 +78,15 @@ export function GuidePage() {
       <Section id="bfw" kicker="4.7" title="Boiler-feedwater fogging">
         <p>
           Tapping boiler feedwater can eliminate dedicated demin pumps and their maintenance. Warmer water often
-          evaporates more completely, with less visible runoff. Operators may reasonably infer that this is “working
-          better.”
+          evaporates more completely, with less visible runoff. Operators may reasonably infer that this is "working
+          better", but we should be careful about what that means.
         </p>
         <InsightCard>
           <p>
             Operational reliability and thermodynamic cooling are different questions. BFW can be a rational
-            reliability choice. It should not be assumed, from reduced runoff alone, to be the thermodynamically
-            cooler inlet. <TextLink to="/case-study">The case study</TextLink> is the narrative; the{" "}
+            reliability choice. However, the reliability gains come with a trade-off of less efficient cooling, all things being equal. 
+            It should not be assumed to be the thermodynamically superior.{" "}
+            <TextLink to="/case-study">The case study</TextLink> is the narrative; the{" "}
             <TextLink to="/simulator?preset=hot-water">hot-water preset</TextLink> is the demonstration.
           </p>
         </InsightCard>

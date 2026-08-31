@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Basic inlet fogger system schematic</title>
+  <desc id="desc">Ambient inlet air passes through an inlet air filter and fogging nozzle zone within an inlet house before entering a gas turbine. A water supply and high-pressure pump feed the fogger nozzle manifold. Unevaporated water drains from the inlet house.</desc>
+  <defs>
+    <linearGradient id="house" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7fafc"/>
+      <stop offset="1" stop-color="#e8eef3"/>
+    </linearGradient>
+    <linearGradient id="turbine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#c99ea3"/>
+      <stop offset="1" stop-color="#f2382c"/>
+    </linearGradient>
+    <marker id="airArrow" markerUnits="userSpaceOnUse" markerWidth="24" markerHeight="24" refX="2" refY="10" orient="auto">
+      <path d="M0,0 L12,10 L0,20 Z" fill="#1f78b4"/>
+    </marker>
+    <marker id="waterArrow" markerUnits="userSpaceOnUse" markerWidth="24" markerHeight="24" refX="2" refY="10" orient="auto">
+      <path d="M0,0 L12,10 L0,20 Z" fill="#087f8c"/>
+    </marker>
+    <marker id="drainArrow" markerUnits="userSpaceOnUse" markerWidth="24" markerHeight="24" refX="2" refY="10" orient="auto">
+      <path d="M0,0 L12,10 L0,20 Z" fill="#52616b"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#1a2b34" flood-opacity="0.16"/>
+    </filter>
+    <style>
+      .label { font-family: Arial, Helvetica, sans-serif; fill: #1d2b34; }
+      .small { font-size: 22px; }
+      .medium { font-size: 27px; font-weight: 700; }
+      .title { font-size: 40px; font-weight: 700; }
+      .air { fill: none; stroke: #1f78b4; stroke-width: 10; marker-end: url(#airArrow); }
+      .water { fill: none; stroke: #087f8c; stroke-width: 8; marker-end: url(#waterArrow); }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#ffffff"/>
+
+  <!-- Inlet house -->
+  <path d="M200 220 H1100 L1170 285 V650 H200 Z" fill="url(#house)" stroke="#52616b" stroke-width="6"/>
+  <text x="555" y="265" text-anchor="middle" class="label medium">INLET HOUSE</text>
+
+  <!-- Ambient inlet opening -->
+  <path d="M200 300 H155 V575 H200" fill="#dce9f2" stroke="#52616b" stroke-width="6"/>
+  <text x="75" y="345" text-anchor="middle" class="label medium">AMBIENT</text>
+  <text x="75" y="378" text-anchor="middle" class="label medium">INLET AIR</text>
+  <path class="air" d="M20 430 H130"/>
+  <path class="air" d="M20 505 H130"/>
+
+  <!-- Filter bank -->
+  <g>
+    <rect x="220" y="250" width="100" height="370" rx="4" fill="#f2d57b" stroke="#735f25" stroke-width="4"/>
+    <path d="M225 285 L315 255 M225 325 L315 295 M225 365 L315 335 M225 405 L315 375 M225 445 L315 415 M225 485 L315 455 M225 525 L315 495 M225 565 L315 535" stroke="#9b812f" stroke-width="4" opacity="0.75"/>
+  </g>
+  <text x="270" y="590" text-anchor="middle" class="label small">AIR</text>
+  <text x="270" y="612" text-anchor="middle" class="label small">FILTER</text>
+
+  <!-- Airflow through house -->
+  <path class="air" d="M400 405 H660"/>
+  <path class="air" d="M400 510 H660"/>
+
+  <!-- Nozzle manifold -->
+  <path d="M700 315 V575" stroke="#087f8c" stroke-width="13" stroke-linecap="round"/>
+  <g fill="#ffffff" stroke="#087f8c" stroke-width="5">
+    <path d="M700 345 H735 L750 355 L735 365 H700 Z"/>
+    <path d="M700 410 H735 L750 420 L735 430 H700 Z"/>
+    <path d="M700 475 H735 L750 485 L735 495 H700 Z"/>
+    <path d="M700 540 H735 L750 550 L735 560 H700 Z"/>
+  </g>
+  <text x="540" y="600" text-anchor="middle" class="label medium">FOGGER NOZZLES</text>
+  <text x="540" y="630" text-anchor="middle" class="label small">and manifold</text>
+
+  <!-- Fog droplets -->
+  <g fill="#3aaed8" opacity="0.85">
+    <circle cx="775" cy="350" r="6"/><circle cx="810" cy="365" r="4"/><circle cx="842" cy="340" r="7"/><circle cx="880" cy="375" r="5"/><circle cx="925" cy="350" r="4"/><circle cx="970" cy="370" r="6"/>
+    <circle cx="780" cy="420" r="4"/><circle cx="820" cy="435" r="7"/><circle cx="855" cy="410" r="5"/><circle cx="900" cy="445" r="4"/><circle cx="945" cy="420" r="6"/><circle cx="990" cy="440" r="4"/>
+    <circle cx="772" cy="492" r="7"/><circle cx="812" cy="475" r="5"/><circle cx="850" cy="505" r="4"/><circle cx="892" cy="480" r="7"/><circle cx="935" cy="510" r="5"/><circle cx="980" cy="490" r="4"/>
+    <circle cx="780" cy="555" r="5"/><circle cx="825" cy="540" r="4"/><circle cx="865" cy="565" r="6"/><circle cx="910" cy="545" r="5"/><circle cx="955" cy="570" r="7"/><circle cx="1000" cy="550" r="4"/>
+  </g>
+  <path class="air" d="M780 455 H1100"/>
+  <text x="920" y="300" text-anchor="middle" class="label medium" fill="#1f78b4">MIST / WATER DROPLETS</text>
+
+  <!-- Transition and gas turbine -->
+  <g>
+    <path d="M1170 340 L1350 390 L1470 340 V580 L1350 540 L1170 580 Z" fill="url(#turbine)" stroke="#26363f" stroke-width="6"/>
+  </g>
+  <g transform="translate(1480 440)">
+    <path
+      d="
+        M 5 15
+        C 17 9, 25 10, 34 16
+        C 43 22, 51 22, 66 14
+        L 66 6
+        L 96 25
+        L 66 44
+        L 66 35
+        C 52 43, 42 43, 32 37
+        C 23 31, 15 30, 5 35
+        Z
+      "
+      fill="#f2382c"
+    />
+  </g>
+  <text x="1320" y="455" text-anchor="middle" class="medium" font-family="Arial, Helvetica, sans-serif" fill="#ffffff">GAS</text>
+  <text x="1320" y="490" text-anchor="middle" class="medium" font-family="Arial, Helvetica, sans-serif" fill="#ffffff">TURBINE</text>
+  
+  <!-- Drainage -->
+  <path d="M200 650 H1170" stroke="#52616b" stroke-width="6"/>
+  <path d="M750 650 H940 L915 685 H775 Z" fill="#cbd5db" stroke="#52616b" stroke-width="5"/>
+  <path d="M845 685 V790" fill="none" stroke="#52616b" stroke-width="8" marker-end="url(#drainArrow)"/>
+  <g fill="#3aaed8"><circle cx="815" cy="625" r="7"/><circle cx="845" cy="632" r="5"/><circle cx="875" cy="620" r="6"/></g>
+  <text x="850" y="840" text-anchor="middle" class="label medium">INLET HOUSE DRAINAGE</text>
+  <text x="850" y="870" text-anchor="middle" class="label small">Unevaporated water / runoff</text>
+
+  <!-- Water supply and pump -->
+  <g>
+    <rect x="60" y="710" width="250" height="130" rx="10" fill="#d9f2f4" stroke="#087f8c" stroke-width="5"/>
+    <path d="M65 775 Q130 753 165 775 T245 775 T305 775 V835 H65 Z" fill="#6bc3cc" opacity="0.65"/>
+  </g>
+  <text x="190" y="750" text-anchor="middle" class="label medium">WATER SUPPLY</text>
+  <text x="190" y="815" text-anchor="middle" class="label small">Demineralized water</text>
+  <circle cx="430" cy="780" r="58" fill="#ffffff" stroke="#087f8c" stroke-width="6"/>
+  <path d="M410 805 L460 780 L410 755 Z" fill="#087f8c"/>
+  <text x="440" y="875" text-anchor="middle" class="label small">High-pressure pump</text>
+  <path class="water" d="M310 780 H360"/>
+  <path class="water" d="M488 780 H700 V600"/>
+
+  <!-- legend -->
+  <path class="air" d="M1110 765 H1190"/>
+  <text x="1210" y="773" class="label small">Airflow</text>
+  <path class="water" d="M1110 815 H1190"/>
+  <text x="1210" y="823" class="label small">Water flow</text>
+</svg>
