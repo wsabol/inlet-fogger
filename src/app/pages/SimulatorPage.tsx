@@ -7,8 +7,6 @@ import { InputsPanel } from "../simulator/InputsPanel";
 import { ResultsSummary } from "../simulator/ResultsSummary";
 import { SimulatorCharts } from "../simulator/Charts";
 import { useSimulation } from "../simulator/useSimulation";
-// TODO: air density % increase chart
-// TODO: fix issues with simulations of different lengths
 
 export function SimulatorPage() {
   const sim = useSimulation();

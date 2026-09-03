@@ -7,10 +7,11 @@ export function GuidePage() {
     <PageShell>
       <PageIntro index="04 — Engineering guide" title="Practice, not prescriptions">
         <p>
-          These notes reorganize field experience into reusable guidance. They are generalized and anonymized. They
-          are not site-specific recommendations, OEM guidance, or a substitute for engineering judgment. Equipment and
-          vendor practices have changed since the early-2000s / 2011–2012 studies that informed this work; the
-          underlying physics has not.
+          These notes reorganize field experience into reusable guidance. They
+          are not site-specific recommendations, OEM guidance, or a substitute for engineering judgment. 
+        </p>
+        <p>
+          While equipment and vendor practices may change over time, the underlying physics does not.
         </p>
       </PageIntro>
 

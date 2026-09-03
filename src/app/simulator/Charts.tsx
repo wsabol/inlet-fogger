@@ -4,7 +4,6 @@ import {
   Legend,
   Line,
   LineChart,
-  ReferenceLine,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -12,42 +11,9 @@ import {
 } from "recharts";
 import type { ScenarioRun } from "./useSimulation";
 import { round } from "../../model/types";
+import { longestSeriesTime, mergeSeries, timeTicks } from "./chart-data";
 
 const COLORS = ["#c5a572", "#4fd1d9", "#9eb6d4"];
-
-type Row = Record<string, number>;
-
-function nearest<T extends { time: number }>(series: T[], time: number): T {
-  let best = series[0];
-  let d = Math.abs(series[0].time - time);
-  for (const p of series) {
-    const dd = Math.abs(p.time - time);
-    if (dd < d) {
-      best = p;
-      d = dd;
-    }
-  }
-  return best;
-}
-
-function merge(
-  runs: ScenarioRun[],
-  pick: (point: ScenarioRun["result"]["series"][number], i: number) => Record<string, number>,
-): Row[] {
-  const times = new Set<number>();
-  for (const run of runs) {
-    for (const p of run.result.series) times.add(p.time);
-  }
-  return [...times]
-    .sort((a, b) => a - b)
-    .map((time) => {
-      const row: Row = { time };
-      runs.forEach((run, i) => {
-        Object.assign(row, pick(nearest(run.result.series, time), i));
-      });
-      return row;
-    });
-}
 
 function ChartFrame({
   title,
@@ -69,22 +35,31 @@ const grid = { stroke: "#2a3340" };
 const tooltipStyle = { background: "#11151f", border: "1px solid #2a3340", fontSize: 14 } as const;
 const legendStyle = { fontSize: 14 };
 
+function formatSignedPercent(value: number): string {
+  const rounded = round(value, 1);
+  return `${rounded > 0 ? "+" : ""}${rounded}%`;
+}
+
 export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
   const [showDensity, setShowDensity] = useState(false);
   if (runs.length === 0) return null;
 
-  const primary = runs[0].result.series;
-  const minDrop = primary.reduce((m, p) => Math.min(m, p.dropletTempF), primary[0]?.dropletTempF ?? 0);
+  const seriesByRun = runs.map((run) => run.result.series);
 
-  const tempData = merge(runs, (p, i) => ({
+  const tempData = mergeSeries(seriesByRun, (p, i) => ({
     [`${i}-air`]: p.airTempF,
     [`${i}-drop`]: p.dropletTempF,
   }));
-  const rhData = merge(runs, (p, i) => ({ [`${i}-rh`]: p.rhPercent }));
-  const dData = merge(runs, (p, i) => ({ [`${i}-d`]: p.dropletUm }));
-  const densData = merge(runs, (p, i) => ({ [`${i}-rho`]: p.density }));
-  const timeTicks = Array.from({ length: 15 }, (_, i) => (i + 1) / 10);
-  const timeTicksHalf = Array.from({ length: 7 }, (_, i) => (i + 1) / 5);
+  const rhData = mergeSeries(seriesByRun, (p, i) => ({ [`${i}-rh`]: p.rhPercent }));
+  const dData = mergeSeries(seriesByRun, (p, i) => ({ [`${i}-d`]: p.dropletUm }));
+  const densData = mergeSeries(seriesByRun, (p, i) => {
+    const initialDensity = runs[i].result.series[0]?.density ?? p.density;
+    const percentChange = initialDensity === 0 ? 0 : ((p.density - initialDensity) / initialDensity) * 100;
+    return { [`${i}-rho`]: percentChange };
+  });
+  const maxTime = longestSeriesTime(seriesByRun);
+  const ticks = timeTicks(maxTime);
+  const timeAxis = { domain: [0, maxTime] as [number, number], ticks, allowDataOverflow: true };
 
   return (
     <div className="space-y-4">
@@ -92,11 +67,10 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
         <ResponsiveContainer>
           <LineChart data={tempData}>
             <CartesianGrid {...grid} />
-            <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 1)}s`} ticks={timeTicks} />
+            <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 1)}s`} {...timeAxis} />
             <YAxis tick={axis} unit="°F" width={56} domain={[30, "auto"]} />
             <Tooltip contentStyle={tooltipStyle} />
             <Legend wrapperStyle={legendStyle} />
-            <ReferenceLine y={minDrop} stroke="#e08a4a" strokeDasharray="3 3" label={{ value: "min droplet", fill: "#e08a4a", fontSize: 14 }} />
             {runs.map((run, i) => (
               <Line
                 key={`${run.id}-air`}
@@ -105,6 +79,7 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
                 name={`${run.name} air`}
                 stroke={COLORS[i]}
                 dot={false}
+                connectNulls
                 strokeWidth={2}
               />
             ))}
@@ -116,6 +91,7 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
                 name={`${run.name} droplet`}
                 stroke={COLORS[i]}
                 dot={false}
+                connectNulls
                 strokeDasharray="4 3"
                 strokeWidth={1.5}
               />
@@ -128,7 +104,7 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
           <ResponsiveContainer>
             <LineChart data={rhData}>
               <CartesianGrid {...grid} />
-              <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 1)}s`} ticks={timeTicksHalf} />
+              <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 1)}s`} {...timeAxis} />
               <YAxis tick={axis} unit=" %" width={48} />
               <Tooltip contentStyle={tooltipStyle} />
               <Legend wrapperStyle={legendStyle} />
@@ -140,6 +116,7 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
                   name={run.name}
                   stroke={COLORS[i]}
                   dot={false}
+                  connectNulls
                   strokeWidth={2}
                 />
               ))}
@@ -150,7 +127,7 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
           <ResponsiveContainer>
             <LineChart data={dData}>
               <CartesianGrid {...grid} />
-              <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 1)}s`} ticks={timeTicksHalf} />
+              <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 1)}s`} {...timeAxis} />
               <YAxis tick={axis} unit=" μm" width={56} />
               <Tooltip contentStyle={tooltipStyle} />
               <Legend wrapperStyle={legendStyle} />
@@ -162,6 +139,7 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
                   name={run.name}
                   stroke={COLORS[i]}
                   dot={false}
+                  connectNulls
                   strokeWidth={2}
                 />
               ))}
@@ -171,16 +149,27 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
       </div>
       <details className="rounded-lg border border-line bg-panel p-4" open={showDensity} onToggle={(e) => setShowDensity((e.target as HTMLDetailsElement).open)}>
         <summary className="cursor-pointer font-mono text-sm tracking-widest text-muted">
-          Air density vs. time (advanced)
+          Air density change vs. time (advanced)
         </summary>
+        {showDensity && (
+          <p className="my-3 text-sm text-muted">Increases in air density are the closest corrolate to effects of turbine output.</p>
+        )}
         {showDensity && (
           <div className="mt-3 h-72">
             <ResponsiveContainer>
               <LineChart data={densData}>
                 <CartesianGrid {...grid} />
-                <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 1)}s`} ticks={timeTicks} />
-                <YAxis tick={axis} width={64} domain={["auto", "auto"]} />
-                <Tooltip contentStyle={tooltipStyle} />
+                <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 1)}s`} {...timeAxis} />
+                <YAxis
+                  tick={axis}
+                  width={72}
+                  domain={["auto", "auto"]}
+                  tickFormatter={formatSignedPercent}
+                />
+                <Tooltip
+                  contentStyle={tooltipStyle}
+                  formatter={(value) => formatSignedPercent(Number(value))}
+                />
                 <Legend wrapperStyle={legendStyle} />
                 {runs.map((run, i) => (
                   <Line
@@ -190,6 +179,7 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
                     name={run.name}
                     stroke={COLORS[i]}
                     dot={false}
+                    connectNulls
                     strokeWidth={2}
                   />
                 ))}
