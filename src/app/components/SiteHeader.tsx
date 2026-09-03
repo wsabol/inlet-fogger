@@ -11,7 +11,7 @@ export function SiteHeader() {
         <Link to="/" className="flex min-w-0 items-baseline gap-2 tracking-wide" onClick={() => setOpen(false)}>
           <span className="font-sans text-sm font-semibold uppercase text-gold">Inlet Fogging</span>
           <span className="hidden truncate font-sans text-sm uppercase text-muted sm:inline">
-            Engineering Reference
+            Engineering
           </span>
         </Link>
         <button
