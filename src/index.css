@@ -40,8 +40,11 @@ body {
   background-color: var(--color-ink);
   background-image:
     linear-gradient(to right, color-mix(in srgb, #4a6a8a 12%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in srgb, #4a6a8a 12%, transparent) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(to bottom, color-mix(in srgb, #4a6a8a 12%, transparent) 1px, transparent 1px),
+    linear-gradient(to right, rgb(11 14 20 / 98%), rgb(11 14 20 / 48%)),
+    url("../img/wp7004741.jpg");
+  background-position: 0 0, 0 0, center, center;
+  background-size: 48px 48px, 48px 48px, cover, cover;
 }
 
 input[type="range"] {

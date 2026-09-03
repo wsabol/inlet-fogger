@@ -13,7 +13,7 @@ export function HomePage() {
             Inlet Fogging
             <span className="mt-1 block italic text-gold">Physics & Practice</span>
           </h1>
-          <p className="mt-6 max-w-xl text-[16px] leading-7 text-muted">
+          <p className="mt-6 max-w-xl text-[16px] leading-7">
             Learn how water temperature, air temperature, and humidity effect gas turbine performance through an interactive droplet
             simulation and practical engineering lessons from real-world fogging installations.
           </p> 
