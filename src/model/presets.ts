@@ -11,7 +11,7 @@ export const BASELINE_INPUTS: ScenarioInputs = {
   airTempF: 80,
   waterTempF: 80,
   rhPercent: 50,
-  waterFlowGpm: 60,
+  waterFlowGpm: 30,
   dropletUm: 30,
   loadPercent: 100,
 };

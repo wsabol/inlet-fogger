@@ -44,7 +44,7 @@ export function ResultsSummary({ runs }: { runs: ScenarioRun[] }) {
         />
         <ResultCard
           label="Air density change"
-          value={`${primary.result.airDensityChange >= 0 ? "+" : ""}${round(primary.result.airDensityChange * 100, 1)} %`}
+          value={`${primary.result.airDensityChange > 0 ? "+" : ""}${round(primary.result.airDensityChange * 100, 1)}%`}
           hint="Cooler inlet air increases density"
           href="/how-it-works#inlet-temperature"
         />
@@ -85,9 +85,11 @@ export function ResultsSummary({ runs }: { runs: ScenarioRun[] }) {
               />
               <CompareRow
                 label="Density change"
-                unit=" pt"
+                unit="%"
                 values={runs.map((r) => r.result.airDensityChange * 100)}
                 digits={1}
+                signedValues
+                compactUnit
               />
             </tbody>
           </table>
@@ -125,11 +127,15 @@ function CompareRow({
   unit,
   values,
   digits,
+  signedValues = false,
+  compactUnit = false,
 }: {
   label: string;
   unit: string;
   values: number[];
   digits: number;
+  signedValues?: boolean;
+  compactUnit?: boolean;
 }) {
   const delta = values.length > 1 ? values[values.length - 1] - values[0] : 0;
   return (
@@ -137,7 +143,10 @@ function CompareRow({
       <td className="px-3 py-2 text-muted">{label}</td>
       {values.map((v, i) => (
         <td key={i} className="px-3 py-2 font-mono text-cream">
-          {round(v, digits)} {unit}
+          {signedValues && v > 0 ? "+" : ""}
+          {round(v, digits)}
+          {compactUnit ? "" : " "}
+          {unit}
         </td>
       ))}
       <td className="px-3 py-2 font-mono text-gold">

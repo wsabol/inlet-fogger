@@ -91,8 +91,7 @@ export function useSimulation() {
       try {
         const result = await post(draft);
         const interpretation = interpretResult(draft, result);
-        const runName =
-          name ?? (asComparison || runs.length > 0 ? `${runLabel} (compare)` : runLabel);
+        const runName = name ?? (asComparison ? `${runLabel} (compare)` : runLabel);
         const next: ScenarioRun = {
           id: crypto.randomUUID(),
           name: runName,

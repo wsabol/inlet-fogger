@@ -74,8 +74,6 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
   if (runs.length === 0) return null;
 
   const primary = runs[0].result.series;
-  const t0 = primary[0]?.time ?? 0;
-  const tEnd = primary[primary.length - 1]?.time ?? 0;
   const minDrop = primary.reduce((m, p) => Math.min(m, p.dropletTempF), primary[0]?.dropletTempF ?? 0);
 
   const tempData = merge(runs, (p, i) => ({
@@ -85,6 +83,8 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
   const rhData = merge(runs, (p, i) => ({ [`${i}-rh`]: p.rhPercent }));
   const dData = merge(runs, (p, i) => ({ [`${i}-d`]: p.dropletUm }));
   const densData = merge(runs, (p, i) => ({ [`${i}-rho`]: p.density }));
+  const timeTicks = Array.from({ length: 15 }, (_, i) => (i + 1) / 10);
+  const timeTicksHalf = Array.from({ length: 7 }, (_, i) => (i + 1) / 5);
 
   return (
     <div className="space-y-4">
@@ -92,13 +92,11 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
         <ResponsiveContainer>
           <LineChart data={tempData}>
             <CartesianGrid {...grid} />
-            <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 2)}s`} />
-            <YAxis tick={axis} unit=" °F" width={56} />
+            <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 1)}s`} ticks={timeTicks} />
+            <YAxis tick={axis} unit="°F" width={56} domain={[30, "auto"]} />
             <Tooltip contentStyle={tooltipStyle} />
             <Legend wrapperStyle={legendStyle} />
-            <ReferenceLine x={t0} stroke="#8b93a7" strokeDasharray="2 4" label={{ value: "inlet", fill: "#8b93a7", fontSize: 14 }} />
             <ReferenceLine y={minDrop} stroke="#e08a4a" strokeDasharray="3 3" label={{ value: "min droplet", fill: "#e08a4a", fontSize: 14 }} />
-            <ReferenceLine x={tEnd} stroke="#8b93a7" strokeDasharray="2 4" label={{ value: "final", fill: "#8b93a7", fontSize: 14 }} />
             {runs.map((run, i) => (
               <Line
                 key={`${run.id}-air`}
@@ -130,7 +128,7 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
           <ResponsiveContainer>
             <LineChart data={rhData}>
               <CartesianGrid {...grid} />
-              <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 2)}s`} />
+              <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 1)}s`} ticks={timeTicksHalf} />
               <YAxis tick={axis} unit=" %" width={48} />
               <Tooltip contentStyle={tooltipStyle} />
               <Legend wrapperStyle={legendStyle} />
@@ -152,7 +150,7 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
           <ResponsiveContainer>
             <LineChart data={dData}>
               <CartesianGrid {...grid} />
-              <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 2)}s`} />
+              <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 1)}s`} ticks={timeTicksHalf} />
               <YAxis tick={axis} unit=" μm" width={56} />
               <Tooltip contentStyle={tooltipStyle} />
               <Legend wrapperStyle={legendStyle} />
@@ -180,7 +178,7 @@ export function SimulatorCharts({ runs }: { runs: ScenarioRun[] }) {
             <ResponsiveContainer>
               <LineChart data={densData}>
                 <CartesianGrid {...grid} />
-                <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 2)}s`} />
+                <XAxis dataKey="time" tick={axis} tickFormatter={(v) => `${round(v, 1)}s`} ticks={timeTicks} />
                 <YAxis tick={axis} width={64} domain={["auto", "auto"]} />
                 <Tooltip contentStyle={tooltipStyle} />
                 <Legend wrapperStyle={legendStyle} />

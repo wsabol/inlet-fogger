@@ -7,10 +7,8 @@ import { InputsPanel } from "../simulator/InputsPanel";
 import { ResultsSummary } from "../simulator/ResultsSummary";
 import { SimulatorCharts } from "../simulator/Charts";
 import { useSimulation } from "../simulator/useSimulation";
-// TODO: show either slider or textbox, not both. Slider first. Click on the slider label to switch. 
-// TODO: verify results match original model
-// TODO: make sure all the presets work
-// TODO: debug compare tool
+// TODO: air density % increase chart
+// TODO: fix issues with simulations of different lengths
 
 export function SimulatorPage() {
   const sim = useSimulation();
@@ -34,7 +32,7 @@ export function SimulatorPage() {
         <p className="font-mono text-sm tracking-widest text-gold">03 — Fogger simulator</p>
         <h1 className="mt-3 font-serif text-4xl text-cream md:text-5xl">Droplet Evaporation Model</h1>
         <p className="mt-4 max-w-3xl text-[15px] leading-7 text-muted">
-          Explore how air temperature, humidity, water temperature, droplet size, and water flow affect the
+          Explore how air temperature, humidity, droplet temperature, droplet size, and water flow affect the
           evaporation of fog droplets before they reach the compressor. Add up to three scenarios to compare on the
           same charts.
         </p>

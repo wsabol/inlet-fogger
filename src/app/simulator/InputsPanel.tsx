@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { ScenarioInputs } from "../../model/types";
 import { PRESETS, type Preset } from "../../model/presets";
 
@@ -58,9 +59,9 @@ const GROUPS: { title: string; fields: Field[] }[] = [
         hint: "Total fog-skid flow — more flow is not always more cooling",
         tooltip:
           "Total water supplied to the fogging system. Increasing water flow increases the amount of water available for evaporation but does not guarantee that all of it will evaporate before the compressor inlet.",
-        min: 0.1,
-        max: 200,
-        step: 0.5,
+        min: 1,
+        max: 120,
+        step: 1,
       },
       {
         key: "dropletUm",
@@ -68,9 +69,9 @@ const GROUPS: { title: string; fields: Field[] }[] = [
         unit: "μm",
         hint: "Representative SMD / D32, not a full spray distribution",
         tooltip: "Representative initial droplet diameter used by the model.",
-        min: 1,
-        max: 80,
-        step: 0.5,
+        min: 5,
+        max: 60,
+        step: 1,
       },
     ],
   },
@@ -132,40 +133,19 @@ export function InputsPanel({
           </div>
         </div>
 
-        {GROUPS.map((group, index) => (
-          <details key={group.title} className="input-group" open={index === 0}>
+        {GROUPS.map((group) => (
+          <details key={group.title} className="input-group" open>
             <summary className="mb-3 cursor-pointer font-mono text-sm tracking-widest text-gold md:cursor-default">
               {group.title}
             </summary>
             <div className="space-y-4">
               {group.fields.map((field) => (
-                <label key={field.key} className="block" title={field.tooltip}>
-                  <div className="flex items-baseline justify-between gap-3">
-                    <span className="font-sans text-sm text-cream/90">{field.label}</span>
-                    <span className="font-mono text-sm text-gold">
-                      {formatValue(draft[field.key])} {field.unit}
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    className="mt-2 hidden md:block"
-                    min={field.min}
-                    max={field.max}
-                    step={field.step}
-                    value={draft[field.key]}
-                    onChange={(e) => onChange({ [field.key]: Number(e.target.value) })}
-                  />
-                  <input
-                    type="number"
-                    className="mt-2 w-full rounded border border-line bg-ink px-2 py-1.5 font-mono text-sm text-cream md:mt-1"
-                    min={field.min}
-                    max={field.max}
-                    step={field.step}
-                    value={draft[field.key]}
-                    onChange={(e) => onChange({ [field.key]: Number(e.target.value) })}
-                  />
-                  <p className="mt-1 font-sans text-sm text-muted">{field.hint}</p>
-                </label>
+                <InputField
+                  key={field.key}
+                  field={field}
+                  value={draft[field.key]}
+                  onChange={(value) => onChange({ [field.key]: value })}
+                />
               ))}
             </div>
           </details>
@@ -201,6 +181,54 @@ export function InputsPanel({
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+function InputField({ field, value, onChange }: { field: Field; value: number; onChange: (value: number) => void }) {
+  const [showTextBox, setShowTextBox] = useState(false);
+  const labelId = `${field.key}-label`;
+
+  return (
+    <div className="block" title={field.tooltip}>
+      <div className="flex items-baseline justify-between gap-3">
+        <span id={labelId} className="font-sans text-sm text-cream/90">
+          {field.label}
+        </span>
+        <button
+          type="button"
+          className="cursor-pointer border-b border-dotted border-gold/50 font-mono text-sm text-gold hover:border-gold-2 hover:text-gold-2"
+          title={`Switch to ${showTextBox ? "slider" : "number input"}`}
+          aria-label={`${formatValue(value)} ${field.unit}; switch to ${showTextBox ? "slider" : "number input"}`}
+          onClick={() => setShowTextBox((current) => !current)}
+        >
+          {formatValue(value)} {field.unit}
+        </button>
+      </div>
+      {showTextBox ? (
+        <input
+          type="number"
+          className="mt-2 w-full rounded border border-line bg-ink px-2 py-1.5 font-mono text-sm text-cream"
+          aria-labelledby={labelId}
+          min={field.min}
+          max={field.max}
+          step={field.step}
+          value={value}
+          onChange={(e) => onChange(Number(e.target.value))}
+        />
+      ) : (
+        <input
+          type="range"
+          className="mt-2 block"
+          aria-labelledby={labelId}
+          min={field.min}
+          max={field.max}
+          step={field.step}
+          value={value}
+          onChange={(e) => onChange(Number(e.target.value))}
+        />
+      )}
+      <p className="mt-1 font-sans text-sm text-muted">{field.hint}</p>
     </div>
   );
 }
