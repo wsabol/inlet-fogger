@@ -4,7 +4,6 @@ import { EquationBlock, TextLink } from "../components/InsightCard";
 import { PageIntro, PageShell, Section } from "../components/PageShell";
 import { scaleTransferArrow, TRANSFER_RATE_MAXIMA } from "./transfer-visual";
 // TODO: QA the equations against the model
-// TODO: What is the difference the Transfer arrows labels and the 'Per-droplet totals at this instant'? Why are they different numbers?
 // TODO: Format the equations blocks better
 
 export function ExplorePage() {
@@ -116,9 +115,9 @@ function DropletTransfer() {
             {waterTemperature}°F water
           </text>
 
-          <VectorLabel x={390} y={110} color="#4fd1d9" title={directionLabel(vapor, "Vapor out", "Condensation in")} value={`${formatSigned(vapor)} s⁻¹`} anchor="start" />
-          <VectorLabel x={142} y={36} color="#c5a572" title={directionLabel(latent, "Latent heat from air", "Latent heat to air")} value={`${formatSigned(latent)} W/kg drop`} anchor="middle" />
-          <VectorLabel x={140} y={248} color="#e08a4a" title={directionLabel(convection, "Convection from air", "Convection to air")} value={`${formatSigned(convection)} W/kg drop`} anchor="middle" />
+          <VectorLabel x={390} y={110} color="#4fd1d9" title={directionLabel(vapor, "Vapor out", "Condensation in")} value={`${formatSigned(transfer.vaporMassRate)} kg/s`} anchor="start" />
+          <VectorLabel x={142} y={36} color="#c5a572" title={directionLabel(latent, "Latent heat from air", "Latent heat to air")} value={`${formatSigned(transfer.latentHeatFromAirRate)} W drop`} anchor="middle" />
+          <VectorLabel x={140} y={248} color="#e08a4a" title={directionLabel(convection, "Convection from air", "Convection to air")} value={`${formatSigned(transfer.convectiveHeatRate)} W drop`} anchor="middle" />
         </svg>
 
         <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-1">
