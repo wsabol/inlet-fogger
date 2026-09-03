@@ -1,5 +1,5 @@
 import schematicUrl from "../../../img/inlet-fogger-system-schematic.svg";
-import { EquationBlock, InsightCard, TextLink } from "../components/InsightCard";
+import { InsightCard, TextLink } from "../components/InsightCard";
 import { PageIntro, PageShell, Section } from "../components/PageShell";
 import { Term } from "../components/Term";
 import { GLOSSARY } from "../content/glossary";

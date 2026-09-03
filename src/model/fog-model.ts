@@ -8,29 +8,10 @@ import {
   kelvinToFahrenheit,
   round,
 } from "./types";
+import { calculateTransferState } from "./transfer";
+export { saturationVaporPressure } from "./transfer";
 
-const G = 9.80665;
-const M_WATER = 0.01801528;
-const M_DA = 0.0289652;
-const R = 8.314472;
 const K_BOLTZMANN = 1.3806505e-23;
-
-function gasLawPressure(density: number, temp: number, molarMass: number): number {
-  return (density * R * temp) / molarMass;
-}
-
-function densityWater(T: number): number {
-  return 786.5 + 1.681 * T - 0.003272 * T ** 2;
-}
-
-function densityDryAir(T: number): number {
-  return 2.3723 - 0.00397 * T;
-}
-
-/** Arden Buck-style saturation vapor pressure, T in Kelvin, result in Pa. */
-export function saturationVaporPressure(T: number): number {
-  return 611.21 * Math.exp(((19.8428 - T / 234.5) * (T - 273.15)) / (T - 16.01));
-}
 
 /**
  * Transient droplet / humid-air solver ported from mee_funct.m via the recovered JS implementation.
@@ -70,14 +51,18 @@ export function calculateFogModel(inputs: ModelInputs): ModelResult {
   let s_drp = 0;
   let h_air = 0;
   let h_drp = 0;
-  let md = densityWater(Td) * (4 / 3) * Math.PI * (Dd / 2) ** 3;
+  const initialTransfer = calculateTransferState({
+    airTemperatureK: Ta,
+    dropletTemperatureK: Td,
+    dropletDiameterM: Dd,
+    relativeHumidity: RH,
+  });
+  let md = initialTransfer.dropletMass;
   let ma = md / mixing_ratio;
 
-  let Psat = saturationVaporPressure(Ta);
-  let row_da = densityDryAir(Ta);
-  let Pda = gasLawPressure(row_da, Ta, M_DA);
-  let Pvap = RH * Psat;
-  let SH = (0.622 * Pvap) / Pda;
+  let Psat = initialTransfer.saturationVaporPressure;
+  let Pvap = initialTransfer.vaporPressure;
+  let SH = initialTransfer.specificHumidity;
 
   const time: number[] = [];
   const TaArr: number[] = [];
@@ -97,53 +82,34 @@ export function calculateFogModel(inputs: ModelInputs): ModelResult {
   let t = 0;
 
   for (t = 0; t < T_MAX; t += DELTA_T) {
-    const k_air = (46.766 + 0.7143 * Ta) * 1e-4;
-    const miu_air = (1.512e-6 * Ta ** 1.5) / (Ta + 120);
-    row_da = densityDryAir(Ta);
-    Pda = gasLawPressure(row_da, Ta, M_DA);
-
-    Psat = saturationVaporPressure(Ta);
-    Pvap = (SH * Pda) / 0.622;
-    const row_wv = (Pvap * M_WATER) / (R * Ta);
-    const Ptot = Pvap + Pda;
-
-    const c_a = 1 / (1 + SH);
-    const c_v = 1 - c_a;
-    const row = c_a * row_da + c_v * row_wv;
-    const delta_a = (((2.26e-5 * 101325 * Ta) / Ptot) / 273.15);
-
-    const C_da = 0.000402 * Ta ** 2 - 0.2026 * Ta + 1030.9;
-    const C_wv = 1772 + 0.312 * Ta;
-    const Ca = c_a * C_da + c_v * C_wv;
-
-    const row_water = densityWater(Td);
-    const Sd = 4 * Math.PI * (Dd / 2) ** 2;
-    md = row_water * (4 / 3) * Math.PI * (Dd / 2) ** 3;
-    const Lv =
-      (Psat *
-        Td *
-        ((R * Td) / (M_WATER * Psat) - 1 / row_water) *
-        (1192134 + 32.02 * Td - Td ** 2)) /
-      (234.5 * (Td - 16.01) ** 2);
-    const Cd = -0.000099 * Td ** 3 + 0.10913 * Td ** 2 - 39.178 * Td + 8785.4;
+    const transfer = calculateTransferState({
+      airTemperatureK: Ta,
+      dropletTemperatureK: Td,
+      dropletDiameterM: Dd,
+      specificHumidity: SH,
+    });
+    const {
+      saturationVaporPressure: currentPsat,
+      vaporPressure: currentPvap,
+      totalPressure: Ptot,
+      dryAirMassFraction: c_a,
+      vaporMassFraction: c_v,
+      humidAirDensity: row,
+      dryAirSpecificHeat: C_da,
+      vaporSpecificHeat: C_wv,
+      airSpecificHeat: Ca,
+      waterDensity: row_water,
+      dropletSurfaceArea: Sd,
+      dropletMass: currentMd,
+      latentHeat: Lv,
+      dropletSpecificHeat: Cd,
+      convectiveCoefficient: h_cv,
+      massFlux: mass_flux,
+    } = transfer;
+    Psat = currentPsat;
+    Pvap = currentPvap;
+    md = currentMd;
     const m_da = c_a * ma;
-
-    const Pr = (miu_air * Ca) / k_air;
-    const beta = 1 / Ta;
-    const Gr_t = (row ** 2 * G * beta * Math.abs(Ta - Td) * Dd ** 3) / miu_air ** 2;
-    const Nu = 2 + 0.6 * Gr_t ** 0.25 * Pr ** 0.33;
-    const h_cv = (Nu * k_air) / Dd;
-
-    const ST = 2.1e-7 * (row_water / M_WATER) ** (2 / 3) * (647.1 - Td);
-    const P_knd = Psat * Math.exp((4 * ST * M_WATER) / (R * Td * Dd * row_water));
-    const row_knd = (M_WATER * P_knd) / (R * Td);
-    const beta_m = c_v / row;
-    const Gr_m = (row ** 2 * G * beta_m * Math.abs(row_wv - row_knd) * Dd ** 3) / miu_air ** 2;
-    const Sc = miu_air / (row * delta_a);
-    const Sh = 2 + 0.6 * Gr_m ** 0.25 * Sc ** 0.33;
-    const Cmass = row_wv - row_knd;
-    const K_mass = (Sh * delta_a) / Dd;
-    const mass_flux = K_mass * Cmass;
 
     const AWB = (-Lv * mass_flux) / h_cv;
 
@@ -156,7 +122,7 @@ export function calculateFogModel(inputs: ModelInputs): ModelResult {
       continue;
     }
 
-    const dmd = Sd * mass_flux;
+    const dmd = transfer.dropletMassRate;
     const dma = -Sd * mass_flux;
     const dC_da = 0.000804 * Ta - 0.2026;
     const dC_wv = 0.312;
