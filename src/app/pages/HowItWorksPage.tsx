@@ -50,6 +50,10 @@ export function HowItWorksPage() {
           <Term id="relative-humidity" /> is how close the air already is to saturation. High ambient relative humidity leaves little room to cool.
         </p>
         <p>
+          An optimal fogging system will reach the full saturation potential of the air(100% relative humidity) leveraging all the evaporate 
+          potential to cool the air. If the air is not reaching full saturation, the system could be undersized or malfunctioning.
+        </p>
+        <p>
           Try the <TextLink to="/simulator?preset=dry-day">dry-day</TextLink> versus{" "}
           <TextLink to="/simulator?preset=humid-day">humid-day</TextLink> presets to see the saturation ceiling.
         </p>

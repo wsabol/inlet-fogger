@@ -47,22 +47,3 @@ export function InterpretationPanel({
     </div>
   );
 }
-
-export function AboutModel() {
-  return (
-    <details className="rounded-lg border border-line bg-panel px-5 py-4">
-      <summary className="cursor-pointer font-sans text-sm text-cream">About this model</summary>
-      <p className="mt-3 text-sm leading-6 text-muted">
-        This simulator models heat and mass transfer between a representative water droplet and surrounding humid air
-        over a nominal 1.5 s filter-house residence time, with a 0.1 ms timestep. It does not model detailed duct
-        geometry, turbulence, nozzle spray distributions, wall interaction, or compressor behavior. Results are not a
-        guaranteed plant-performance predictor.
-      </p>
-      <p className="mt-2 text-sm">
-        <Link to="/resources" className="text-gold hover:underline">
-          View full assumptions and derivation
-        </Link>
-      </p>
-    </details>
-  );
-}

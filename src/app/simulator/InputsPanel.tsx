@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import type { ScenarioInputs } from "../../model/types";
 import { PRESETS, type Preset } from "../../model/presets";
 
@@ -115,9 +114,6 @@ export function InputsPanel({
 }) {
   return (
     <div className="rounded-lg border border-line bg-panel">
-      <div className="border-b border-line px-4 py-3">
-        <p className="font-mono text-sm tracking-widest text-muted">Scenario inputs</p>
-      </div>
       <div className="space-y-6 px-4 py-4">
         <div>
           <p className="mb-2 font-mono text-sm tracking-widest text-muted">Presets</p>
@@ -204,11 +200,6 @@ export function InputsPanel({
             </button>
           )}
         </div>
-        <p className="font-sans text-sm text-muted">
-          <Link to="/resources" className="text-gold hover:underline">
-            How does the model work?
-          </Link>
-        </p>
       </div>
     </div>
   );

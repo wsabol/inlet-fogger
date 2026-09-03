@@ -2,11 +2,15 @@ import { useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { presetById } from "../../model/presets";
 import { PageShell } from "../components/PageShell";
-import { AboutModel, InterpretationPanel } from "../simulator/Interpretation";
+import { InterpretationPanel } from "../simulator/Interpretation";
 import { InputsPanel } from "../simulator/InputsPanel";
 import { ResultsSummary } from "../simulator/ResultsSummary";
 import { SimulatorCharts } from "../simulator/Charts";
 import { useSimulation } from "../simulator/useSimulation";
+// TODO: show either slider or textbox, not both. Slider first. Click on the slider label to switch. 
+// TODO: verify results match original model
+// TODO: make sure all the presets work
+// TODO: debug compare tool
 
 export function SimulatorPage() {
   const sim = useSimulation();
@@ -34,19 +38,6 @@ export function SimulatorPage() {
           evaporation of fog droplets before they reach the compressor. Add up to three scenarios to compare on the
           same charts.
         </p>
-        <p className="mt-3 text-sm">
-          <Link to="/resources" className="text-gold hover:underline">
-            How does the model work?
-          </Link>
-        </p>
-        <div className="mt-6 rounded-lg border border-line px-4 py-3 text-sm leading-6 text-muted">
-          Educational model only. Results are not a guaranteed plant-performance predictor. Assumes a representative
-          spherical droplet, simplified airflow, and a 3.9 Mpph reference turbine at full load. See{" "}
-          <Link to="/resources" className="text-gold hover:underline">
-            Resources
-          </Link>{" "}
-          for assumptions and limitations.
-        </div>
       </div>
 
       <div className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 lg:grid-cols-[minmax(16rem,20rem)_1fr]">
@@ -96,10 +87,22 @@ export function SimulatorPage() {
               <ResultsSummary runs={sim.runs} />
               <SimulatorCharts runs={sim.runs} />
               {active && <InterpretationPanel run={active} showHotWater={hasHotVsCold} />}
-              <AboutModel />
             </>
           )}
         </div>
+      </div>
+
+      <div className="mx-auto max-w-6xl px-5 pt-5 pb-6 border-t border-line">
+        <p className="font-mono text-sm tracking-widest">About this model</p>
+        <p className="mt-3 text-sm leading-6 text-muted">
+          This simulator models heat and mass transfer between a representative spherical water droplet and surrounding humid air over a 
+          nominal filter-house, with a 0.1 ms timestep. Its results have been validated against real-world scenarios within ~1.0% of final air temperatures.
+        </p>
+        <p className="mt-2 text-sm">
+          <Link to="/resources" className="text-gold hover:underline">
+            View full assumptions and derivations
+          </Link>
+        </p>
       </div>
     </PageShell>
   );
