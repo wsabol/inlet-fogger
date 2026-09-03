@@ -16,7 +16,7 @@ export function BuyMeACoffeeButton() {
     script.async = true;
     script.dataset.name = "bmc-button";
     script.dataset.slug = "willsabol";
-    script.dataset.color = "#c5a572";
+    script.dataset.color = "#8b93a7";
     script.dataset.emoji = "";
     script.dataset.font = "Cookie";
     script.dataset.text = "Buy me a coffee";
@@ -40,7 +40,7 @@ export function BuyMeACoffeeButton() {
         href="https://www.buymeacoffee.com/willsabol"
         target="_blank"
         rel="noreferrer"
-        className="inline-flex h-12 items-center gap-2 rounded-lg border border-black bg-[#c5a572] px-4 text-xl text-cream shadow-sm transition-transform hover:-translate-y-0.5"
+        className="inline-flex h-12 items-center gap-2 rounded-lg border border-black bg-[#8b93a7] px-4 text-xl text-cream shadow-sm transition-transform hover:-translate-y-0.5"
         style={{ fontFamily: '"Cookie", cursive' }}
       >
         <span aria-hidden="true" className="text-2xl">

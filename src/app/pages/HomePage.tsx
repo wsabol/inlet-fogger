@@ -33,20 +33,6 @@ export function HomePage() {
 
       <section className="border-b border-line">
         <div className="mx-auto max-w-6xl px-5 py-24">
-          <p className="font-mono text-sm tracking-widest text-gold">Case Study</p>
-          <h2 className="mt-2 font-serif text-3xl text-cream">More Evaporation. Less Cooling?</h2>
-          <p className="mt-3 max-w-2xl text-[15px] leading-7 text-muted">
-            A fleet study asked whether warmer fogging water could explain a 2-3 MW difference between units. 
-            What does it mean when more of the fogger water is being evaporated? How does this effect performance?
-          </p>
-          <Link to="/case-study" className="mt-4 inline-block text-sm text-gold hover:underline">
-            Read more →
-          </Link>
-        </div>
-      </section>
-
-      <section>
-        <div className="mx-auto max-w-6xl px-5 py-24">
           <p className="font-mono text-sm tracking-widest text-gold">Explore</p>
           <h2 className="mt-2 font-serif text-3xl text-cream">Why This Matters</h2>
           <p className="mt-3 max-w-2xl text-[15px] leading-7 text-muted">
@@ -81,6 +67,20 @@ export function HomePage() {
               body="Nozzles, drainage, pumps, materials, controls, and the operational lessons that actually show up in the field."
             />
           </div>
+        </div>
+      </section>
+
+      <section>
+        <div className="mx-auto max-w-6xl px-5 py-24">
+          <p className="font-mono text-sm tracking-widest text-gold">Case Study</p>
+          <h2 className="mt-2 font-serif text-3xl text-cream">More Evaporation. Less Cooling?</h2>
+          <p className="mt-3 max-w-2xl text-[15px] leading-7 text-muted">
+            A fleet study asked whether warmer fogging water could explain a 2-3 MW difference between units. 
+            What does it mean when more of the fogger water is being evaporated? How does this effect performance?
+          </p>
+          <Link to="/case-study" className="mt-4 inline-block text-sm text-gold hover:underline">
+            Read more →
+          </Link>
         </div>
       </section>
     </PageShell>
