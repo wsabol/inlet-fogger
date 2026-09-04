@@ -6,7 +6,6 @@ import { ExplorePage } from "./pages/ExplorePage";
 import { GuidePage } from "./pages/GuidePage";
 import { HomePage } from "./pages/HomePage";
 import { HowItWorksPage } from "./pages/HowItWorksPage";
-import { ResourcesPage } from "./pages/ResourcesPage";
 import { SimulatorPage } from "./pages/SimulatorPage";
 
 function ScrollToTop() {
@@ -35,7 +34,6 @@ export function App() {
         <Route path="/simulator" element={<SimulatorPage />} />
         <Route path="/guide" element={<GuidePage />} />
         <Route path="/case-study" element={<CaseStudyPage />} />
-        <Route path="/resources" element={<ResourcesPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

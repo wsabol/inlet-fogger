@@ -82,7 +82,7 @@ export function HowItWorksPage() {
           <p>
             Faster evaporation is not the same as greater cooling. Hotter water evaporates very quickly in Phase 1 as it approaches wet bulb, and can leave
             less runoff, but there's less potential for Phase 2 latent-heaer transfer. Put simply, in a closed system the extra enthalpy from the water stays in the droplet-air system. 
-            All else equal, the air temperatureas in enters to the compressor will be slightly higher.
+            All else equal, the air temperature as it enters the compressor will be slightly higher.
           </p>
         </InsightCard>
         <p>

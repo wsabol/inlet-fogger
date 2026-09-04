@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { presetById } from "../../model/presets";
 import { PageShell } from "../components/PageShell";
 import { InterpretationPanel } from "../simulator/Interpretation";
@@ -7,6 +7,8 @@ import { InputsPanel } from "../simulator/InputsPanel";
 import { ResultsSummary } from "../simulator/ResultsSummary";
 import { SimulatorCharts } from "../simulator/Charts";
 import { useSimulation } from "../simulator/useSimulation";
+import { Assumptions } from "../components/Assumptions";
+import { TextLink } from "../components/InsightCard";
 
 export function SimulatorPage() {
   const sim = useSimulation();
@@ -89,16 +91,17 @@ export function SimulatorPage() {
       </div>
 
       <div className="mx-auto max-w-6xl px-5 pt-5 pb-6 border-t border-line">
-        <p className="font-mono text-sm tracking-widest">About this model</p>
-        <p className="mt-3 text-sm leading-6 text-muted">
-          This simulator models heat and mass transfer between a representative spherical water droplet and surrounding humid air over a 
-          nominal filter-house, with a 0.1 ms timestep. Its results have been validated against real-world scenarios within ~1.0% of final air temperatures.
-        </p>
-        <p className="mt-2 text-sm">
-          <Link to="/resources" className="text-gold hover:underline">
-            View full assumptions and derivations
-          </Link>
-        </p>
+        <div className="max-w-4xl">
+          <p className="font-mono text-sm tracking-widest">About this model</p>
+          <p className="mt-3 text-[15px] leading-6 text-muted">
+            This simulator models heat and mass transfer between a representative spherical water droplet and surrounding humid air over a 
+            nominal filter-house, with a 0.1 ms timestep. 
+          </p>
+          <p className="mt-3 text-[15px] leading-6 text-muted">
+            Its results were validated as a part of a <TextLink to="/case-study">case study</TextLink> against real-world scenarios within ~1.0% of final air temperatures.
+          </p>
+        </div>
+        <Assumptions />
       </div>
     </PageShell>
   );
