@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { calculateInstantaneousTransfer } from "../../model";
-import { EquationBlock, TextLink } from "../components/InsightCard";
+import { EquationBlock, EquationLine, MathFraction, MathVariable, TextLink } from "../components/InsightCard";
 import { PageIntro, PageShell, Section } from "../components/PageShell";
 import { scaleTransferArrow, TRANSFER_RATE_MAXIMA } from "./transfer-visual";
 // TODO: QA the equations against the model
-// TODO: Format the equations blocks better
 
 export function ExplorePage() {
   return (
@@ -19,34 +18,92 @@ export function ExplorePage() {
         <DropletTransfer />
 
         <p className="pt-6">
-          Explaination of the equations that drive the model:
+          Explanation of the equations that drive the model:
         </p>
         <EquationBlock
           label="Vapor / mass transfer"
-          formula="m″ = K_mass(ρ_wv − ρ_knd); K_mass = Sh·δₐ/d;  ṁ_v/m_d = −S_d·m″/m_d"
+          formula={
+            <div className="space-y-2">
+              <EquationLine>
+                <MathVariable superscript="″">m</MathVariable> = <MathVariable subscript="mass">K</MathVariable>
+                (<MathVariable subscript="wv">ρ</MathVariable> − <MathVariable subscript="knd">ρ</MathVariable>)
+              </EquationLine>
+              <EquationLine>
+                <MathVariable subscript="mass">K</MathVariable> =
+                <MathFraction
+                  numerator={<><MathVariable>Sh</MathVariable> · <MathVariable subscript="a">δ</MathVariable></>}
+                  denominator={<MathVariable>d</MathVariable>}
+                />
+              </EquationLine>
+              <EquationLine>
+                <MathFraction
+                  numerator={<MathVariable subscript="v" accent="dot">m</MathVariable>}
+                  denominator={<MathVariable subscript="d">m</MathVariable>}
+                />
+                = −
+                <MathFraction
+                  numerator={<><MathVariable subscript="d">S</MathVariable> · <MathVariable superscript="″">m</MathVariable></>}
+                  denominator={<MathVariable subscript="d">m</MathVariable>}
+                />
+              </EquationLine>
+            </div>
+          }
           legend={[
-            { symbol: "Sh", meaning: "2 + 0.6·Gr_m^0.25·Sc^0.33" },
-            { symbol: "S_d", meaning: "Droplet area, πd²" },
-            { symbol: "m_d", meaning: "Droplet mass, ρ_water·πd³/6" },
-            { symbol: "ρ_knd", meaning: "Kelvin-corrected vapor density at the surface" },
+            { symbol: <MathVariable>Sh</MathVariable>, meaning: <>2 + 0.6 · <MathVariable subscript="m" superscript="0.25">Gr</MathVariable> · <MathVariable superscript="0.33">Sc</MathVariable></> },
+            { symbol: <MathVariable subscript="d">S</MathVariable>, meaning: <>Droplet area, π<MathVariable superscript="2">d</MathVariable></> },
+            { symbol: <MathVariable subscript="d">m</MathVariable>, meaning: <>Droplet mass, <MathVariable subscript="water">ρ</MathVariable> · π<MathVariable superscript="3">d</MathVariable>/6</> },
+            { symbol: <MathVariable subscript="knd">ρ</MathVariable>, meaning: "Kelvin-corrected vapor density at the surface" },
           ]}
         />
         <EquationBlock
           label="Latent heat drawn from air"
-          formula="q̇_lat,air/m_d = −Lᵥ·S_d·m″/m_d"
+          formula={
+            <EquationLine>
+              <MathFraction
+                numerator={<MathVariable subscript={<>lat,air</>} accent="dot">q</MathVariable>}
+                denominator={<MathVariable subscript="d">m</MathVariable>}
+              />
+              = −<MathVariable subscript="v">L</MathVariable> ·
+              <MathFraction
+                numerator={<><MathVariable subscript="d">S</MathVariable> · <MathVariable superscript="″">m</MathVariable></>}
+                denominator={<MathVariable subscript="d">m</MathVariable>}
+              />
+            </EquationLine>
+          }
           legend={[
-            { symbol: "Lᵥ", meaning: "Latent heat from the model's temperature-dependent expression" },
-            { symbol: "m″ < 0", meaning: "Evaporation: latent demand from the surrounding air" },
-            { symbol: "m″ > 0", meaning: "Condensation: latent heat direction reverses" },
+            { symbol: <MathVariable subscript="v">L</MathVariable>, meaning: "Latent heat from the model's temperature-dependent expression" },
+            { symbol: <><MathVariable superscript="″">m</MathVariable> &lt; 0</>, meaning: "Evaporation: latent demand from the surrounding air" },
+            { symbol: <><MathVariable superscript="″">m</MathVariable> &gt; 0</>, meaning: "Condensation: latent heat direction reverses" },
           ]}
         />
         <EquationBlock
           label="Convective heat transfer"
-          formula="q̇_conv/m_d = h_cv·S_d·(T_air − T_drop)/m_d;  h_cv = Nu·k_air/d"
+          formula={
+            <div className="space-y-2">
+              <EquationLine>
+                <MathFraction
+                  numerator={<MathVariable subscript="conv" accent="dot">q</MathVariable>}
+                  denominator={<MathVariable subscript="d">m</MathVariable>}
+                />
+                = <MathVariable subscript="cv">h</MathVariable> ·
+                <MathFraction
+                  numerator={<><MathVariable subscript="d">S</MathVariable> · (<MathVariable subscript="air">T</MathVariable> − <MathVariable subscript="drop">T</MathVariable>)</>}
+                  denominator={<MathVariable subscript="d">m</MathVariable>}
+                />
+              </EquationLine>
+              <EquationLine>
+                <MathVariable subscript="cv">h</MathVariable> =
+                <MathFraction
+                  numerator={<><MathVariable>Nu</MathVariable> · <MathVariable subscript="air">k</MathVariable></>}
+                  denominator={<MathVariable>d</MathVariable>}
+                />
+              </EquationLine>
+            </div>
+          }
           legend={[
-            { symbol: "Nu", meaning: "2 + 0.6·Gr_t^0.25·Pr^0.33" },
-            { symbol: "k_air", meaning: "Model air thermal conductivity" },
-            { symbol: "T_air − T_drop", meaning: "Signed temperature driving force" },
+            { symbol: <MathVariable>Nu</MathVariable>, meaning: <>2 + 0.6 · <MathVariable subscript="t" superscript="0.25">Gr</MathVariable> · <MathVariable superscript="0.33">Pr</MathVariable></> },
+            { symbol: <MathVariable subscript="air">k</MathVariable>, meaning: "Model air thermal conductivity" },
+            { symbol: <><MathVariable subscript="air">T</MathVariable> − <MathVariable subscript="drop">T</MathVariable></>, meaning: "Signed temperature driving force" },
           ]}
         />
       </Section>

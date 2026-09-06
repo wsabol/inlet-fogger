@@ -1,5 +1,6 @@
 interface Env {
   RESEND_API_KEY?: string;
+  CONTACT_TO_EMAIL?: string;
 }
 
 interface ContactSubmission {
@@ -10,8 +11,7 @@ interface ContactSubmission {
   company?: unknown;
 }
 
-const FROM_EMAIL = "contact@inletfogging.com";
-const TO_EMAIL = "wsabol39@gmail.com";
+const FROM_EMAIL = "contact@willsabol.com";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function json(data: object, status = 200): Response {
@@ -83,6 +83,10 @@ export default {
       console.error("RESEND_API_KEY is not configured");
       return json({ error: "Email is temporarily unavailable. Please try again later." }, 503);
     }
+    if (!env.CONTACT_TO_EMAIL) {
+      console.error("CONTACT_TO_EMAIL is not configured");
+      return json({ error: "Email is temporarily unavailable. Please try again later." }, 503);
+    }
 
     const safeName = escapeHtml(name);
     const safeEmail = escapeHtml(email);
@@ -96,7 +100,7 @@ export default {
       },
       body: JSON.stringify({
         from: `Inlet Fogging Contact <${FROM_EMAIL}>`,
-        to: [TO_EMAIL],
+        to: [env.CONTACT_TO_EMAIL],
         reply_to: email,
         subject: `[Inlet Fogging] ${subject}`,
         html: `<h2>New contact form message</h2><p><strong>From:</strong> ${safeName} &lt;${safeEmail}&gt;</p><p><strong>Subject:</strong> ${safeSubject}</p><hr><p>${safeMessage}</p>`,

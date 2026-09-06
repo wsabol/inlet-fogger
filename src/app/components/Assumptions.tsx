@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { COMPARISONS } from "../content/fieldComparisons";
-import { TextLink } from "./InsightCard";
+import { MathVariable, TextLink } from "./InsightCard";
 
 const TABS = ["Validation", "Constants", "Assumptions", "References"] as const;
 type Tab = (typeof TABS)[number];
@@ -60,25 +60,29 @@ function Constants() {
             <th className="px-3 py-2">Meaning</th>
           </tr>
         </thead>
-        <tbody className="font-mono text-cream">
-          <Row s="g" v="9.80665 m/s²" m="Gravity" />
-          <Row s="M_water" v="0.01801528 kg/mol" m="Water molar mass" />
-          <Row s="M_da" v="0.0289652 kg/mol" m="Dry-air molar mass" />
-          <Row s="R" v="8.314472 J/mol/K" m="Gas constant" />
-          <Row s="t_max" v="1.5 s" m="Nominal residence time" />
-          <Row s="ṁ_air,ref" v="3.9×10⁶ lb/h" m="Full-load reference airflow" />
-          <Row s="dt" v="0.0001 s" m="Fixed integral timestep" />
+        <tbody className="text-cream">
+          <Row s={<MathVariable>g</MathVariable>} v={<>9.80665 m/s<sup>2</sup></>} m="Gravity" />
+          <Row s={<MathVariable subscript="water">M</MathVariable>} v="0.01801528 kg/mol" m="Water molar mass" />
+          <Row s={<MathVariable subscript="da">M</MathVariable>} v="0.0289652 kg/mol" m="Dry-air molar mass" />
+          <Row s={<MathVariable>R</MathVariable>} v="8.314472 J/mol/K" m="Gas constant" />
+          <Row s={<MathVariable subscript="max">t</MathVariable>} v="1.5 s" m="Nominal residence time" />
+          <Row
+            s={<MathVariable subscript={<>air,ref</>} accent="dot">m</MathVariable>}
+            v={<>3.9 × 10<sup>6</sup> lb/h</>}
+            m="Full-load reference airflow"
+          />
+          <Row s={<>Δ<MathVariable>t</MathVariable></>} v="0.0001 s" m="Fixed integral timestep" />
         </tbody>
       </table>
     </div>
   );
 }
 
-function Row({ s, v, m }: { s: string; v: string; m: string }) {
+function Row({ s, v, m }: { s: React.ReactNode; v: React.ReactNode; m: React.ReactNode }) {
   return (
     <tr className="border-t border-line">
-      <td className="px-3 py-2 text-gold">{s}</td>
-      <td className="px-3 py-2">{v}</td>
+      <td className="whitespace-nowrap px-3 py-2 font-serif text-base text-gold">{s}</td>
+      <td className="whitespace-nowrap px-3 py-2 font-mono">{v}</td>
       <td className="px-3 py-2 font-sans text-muted">{m}</td>
     </tr>
   );

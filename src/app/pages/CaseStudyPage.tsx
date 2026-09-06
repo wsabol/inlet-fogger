@@ -92,6 +92,18 @@ export function CaseStudyPage() {
           Having clean nozzles that produce fog to spec vastly outweigh the small thermodynamic effect of hot water.
         </p>
       </Section>
+
+      <Section title="">
+        <p>For more information, read the full white paper:</p>
+        <a
+          href="/Fogger-Case-Study-White-Paper.pdf"
+          target="_blank"
+          rel="noreferrer"
+          className="inline-block border border-cream/30 px-5 py-2.5 font-sans text-sm text-cream hover:border-gold hover:text-gold"
+        >
+          Fogger Case Study White Paper (PDF) ↗
+        </a>
+      </Section>
     </PageShell>
   );
 }
