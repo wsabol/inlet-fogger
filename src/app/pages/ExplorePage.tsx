@@ -3,7 +3,6 @@ import { calculateInstantaneousTransfer } from "../../model";
 import { EquationBlock, EquationLine, MathFraction, MathVariable, TextLink } from "../components/InsightCard";
 import { PageIntro, PageShell, Section } from "../components/PageShell";
 import { scaleTransferArrow, TRANSFER_RATE_MAXIMA } from "./transfer-visual";
-// TODO: QA the equations against the model
 
 export function ExplorePage() {
   return (
@@ -25,71 +24,61 @@ export function ExplorePage() {
           formula={
             <div className="space-y-2">
               <EquationLine>
-                <MathVariable superscript="″">m</MathVariable> = <MathVariable subscript="mass">K</MathVariable>
-                (<MathVariable subscript="wv">ρ</MathVariable> − <MathVariable subscript="knd">ρ</MathVariable>)
+                <MathVariable accent="dot" subscript="drop">m</MathVariable> = <MathVariable subscript="drop">S</MathVariable>
+                <MathVariable subscript="mass">K</MathVariable>(<MathVariable subscript="wv">ρ</MathVariable> − <MathVariable subscript="knd">ρ</MathVariable>)
               </EquationLine>
               <EquationLine>
                 <MathVariable subscript="mass">K</MathVariable> =
                 <MathFraction
-                  numerator={<><MathVariable>Sh</MathVariable> · <MathVariable subscript="a">δ</MathVariable></>}
+                  numerator={<><MathVariable>Sh</MathVariable> · <MathVariable subscript="air">δ</MathVariable></>}
                   denominator={<MathVariable>d</MathVariable>}
                 />
               </EquationLine>
               <EquationLine>
+                <MathVariable subscript="air">δ</MathVariable>{" = 2.26e-5 · "}
                 <MathFraction
-                  numerator={<MathVariable subscript="v" accent="dot">m</MathVariable>}
-                  denominator={<MathVariable subscript="d">m</MathVariable>}
-                />
-                = −
-                <MathFraction
-                  numerator={<><MathVariable subscript="d">S</MathVariable> · <MathVariable superscript="″">m</MathVariable></>}
-                  denominator={<MathVariable subscript="d">m</MathVariable>}
+                  numerator={<>101325 · <MathVariable subscript="air">T</MathVariable></>}
+                  denominator={<>273.15 · <MathVariable subscript="total">P</MathVariable></>}
                 />
               </EquationLine>
             </div>
           }
           legend={[
-            { symbol: <MathVariable>Sh</MathVariable>, meaning: <>2 + 0.6 · <MathVariable subscript="m" superscript="0.25">Gr</MathVariable> · <MathVariable superscript="0.33">Sc</MathVariable></> },
-            { symbol: <MathVariable subscript="d">S</MathVariable>, meaning: <>Droplet area, π<MathVariable superscript="2">d</MathVariable></> },
-            { symbol: <MathVariable subscript="d">m</MathVariable>, meaning: <>Droplet mass, <MathVariable subscript="water">ρ</MathVariable> · π<MathVariable superscript="3">d</MathVariable>/6</> },
-            { symbol: <MathVariable subscript="knd">ρ</MathVariable>, meaning: "Kelvin-corrected vapor density at the surface" },
+            { symbol: <MathVariable subscript="drop" accent="dot">m</MathVariable>, meaning: "Rate of mass transfer from the droplet to the air" },
+            { symbol: <MathVariable subscript="drop">S</MathVariable>, meaning: <>Droplet surface area, π<MathVariable superscript="2">d</MathVariable></> },
+            { symbol: <MathVariable subscript="mass">K</MathVariable>, meaning: "Mass diffusion coefficient" },
+            { symbol: <MathVariable subscript="wv">ρ</MathVariable>, meaning: "Density of water vapor in humid air" },
+            { symbol: <MathVariable subscript="knd">ρ</MathVariable>, meaning: "Density of water vapor at the droplet surface (Knudsen layer)" },
+            { symbol: <MathVariable>Sh</MathVariable>, meaning: <>Sherwood Number = 2 + 0.6 · <MathVariable subscript="m" superscript="0.25">Gr</MathVariable> · <MathVariable superscript="0.33">Sc</MathVariable></> },
+            { symbol: <MathVariable>d</MathVariable>, meaning: "Diameter of the droplet" },
+            { symbol: <MathVariable subscript="a">δ</MathVariable>, meaning: "Mass diffusivity for air" },
+            { symbol: <MathVariable subscript="air">T</MathVariable>, meaning: "Air temperature" },
+            { symbol: <MathVariable subscript="total">P</MathVariable>, meaning: "Air pressure = Partial pressures of water vapor and dry air" },
           ]}
         />
         <EquationBlock
           label="Latent heat drawn from air"
           formula={
             <EquationLine>
-              <MathFraction
-                numerator={<MathVariable subscript={<>lat,air</>} accent="dot">q</MathVariable>}
-                denominator={<MathVariable subscript="d">m</MathVariable>}
-              />
-              = −<MathVariable subscript="v">L</MathVariable> ·
-              <MathFraction
-                numerator={<><MathVariable subscript="d">S</MathVariable> · <MathVariable superscript="″">m</MathVariable></>}
-                denominator={<MathVariable subscript="d">m</MathVariable>}
-              />
+              <MathVariable subscript="lat" accent="dot">Q</MathVariable>
+              = <MathVariable subscript="v">L</MathVariable><MathVariable subscript="drop" accent="dot">m</MathVariable>
             </EquationLine>
           }
           legend={[
-            { symbol: <MathVariable subscript="v">L</MathVariable>, meaning: "Latent heat from the model's temperature-dependent expression" },
-            { symbol: <><MathVariable superscript="″">m</MathVariable> &lt; 0</>, meaning: "Evaporation: latent demand from the surrounding air" },
-            { symbol: <><MathVariable superscript="″">m</MathVariable> &gt; 0</>, meaning: "Condensation: latent heat direction reverses" },
+            { symbol: <MathVariable subscript="lat" accent="dot">Q</MathVariable>, meaning: "Latent heat transfer rate" },
+            { symbol: <MathVariable subscript="v">L</MathVariable>, meaning: "Latent heat of vaporization for water, derived from the Clausius-Clapeyron relation" },
+            { symbol: <><MathVariable subscript="drop" accent="dot">m</MathVariable> &lt; 0</>, meaning: "Evaporation: latent demand from the surrounding air" },
+            { symbol: <><MathVariable subscript="drop" accent="dot">m</MathVariable> &gt; 0</>, meaning: "Condensation: latent heat direction reverses" },
           ]}
         />
         <EquationBlock
-          label="Convective heat transfer"
+          label="Convective heat transfer (Newton's Law of Cooling, no radiation)"
           formula={
             <div className="space-y-2">
               <EquationLine>
-                <MathFraction
-                  numerator={<MathVariable subscript="conv" accent="dot">q</MathVariable>}
-                  denominator={<MathVariable subscript="d">m</MathVariable>}
-                />
-                = <MathVariable subscript="cv">h</MathVariable> ·
-                <MathFraction
-                  numerator={<><MathVariable subscript="d">S</MathVariable> · (<MathVariable subscript="air">T</MathVariable> − <MathVariable subscript="drop">T</MathVariable>)</>}
-                  denominator={<MathVariable subscript="d">m</MathVariable>}
-                />
+                <MathVariable subscript="conv" accent="dot">Q</MathVariable>
+                = <MathVariable subscript="cv">h</MathVariable>
+                  <MathVariable subscript="drop">S</MathVariable> (<MathVariable subscript="air">T</MathVariable> − <MathVariable subscript="drop">T</MathVariable>)
               </EquationLine>
               <EquationLine>
                 <MathVariable subscript="cv">h</MathVariable> =
@@ -101,8 +90,11 @@ export function ExplorePage() {
             </div>
           }
           legend={[
-            { symbol: <MathVariable>Nu</MathVariable>, meaning: <>2 + 0.6 · <MathVariable subscript="t" superscript="0.25">Gr</MathVariable> · <MathVariable superscript="0.33">Pr</MathVariable></> },
-            { symbol: <MathVariable subscript="air">k</MathVariable>, meaning: "Model air thermal conductivity" },
+            { symbol: <MathVariable subscript="conv" accent="dot">Q</MathVariable>, meaning: "Convective heat transfer rate" },
+            { symbol: <MathVariable subscript="drop">m</MathVariable>, meaning: <>Droplet mass, <MathVariable subscript="water">ρ</MathVariable> · π<MathVariable superscript="3">d</MathVariable>/6</> },
+            { symbol: <MathVariable subscript="cv">h</MathVariable>, meaning: <>Convective heat transfer coefficient, <MathVariable>Nu</MathVariable> · <MathVariable subscript="air">k</MathVariable> / <MathVariable>d</MathVariable></> },
+            { symbol: <MathVariable>Nu</MathVariable>, meaning: <>Nusselt number, for natural convection = 2 + 0.6 · <MathVariable subscript="t" superscript="0.25">Gr</MathVariable> · <MathVariable superscript="0.33">Pr</MathVariable></> },
+            { symbol: <MathVariable subscript="air">k</MathVariable>, meaning: "Thermal conductivity of air" },
             { symbol: <><MathVariable subscript="air">T</MathVariable> − <MathVariable subscript="drop">T</MathVariable></>, meaning: "Signed temperature driving force" },
           ]}
         />
