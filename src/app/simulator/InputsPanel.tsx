@@ -117,7 +117,7 @@ export function InputsPanel({
     <div className="rounded-lg border border-line bg-panel">
       <div className="space-y-6 px-4 py-4">
         <div>
-          <p className="mb-2 font-mono text-sm tracking-widest text-muted">Presets</p>
+          <p className="mb-2 font-mono text-sm tracking-widest text-cyan">Presets</p>
           <div className="flex flex-wrap gap-2">
             {PRESETS.map((p) => (
               <button

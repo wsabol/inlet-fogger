@@ -178,7 +178,7 @@ function DropletTransfer() {
       </div>
 
       <div className="mt-6 rounded border border-line bg-ink/40 px-4 py-3">
-        <p className="font-mono text-xs tracking-widest text-muted">Per-droplet totals at this instant</p>
+        <p className="font-mono text-xs tracking-widest text-cyan">Per-droplet totals at this instant</p>
         <dl className="mt-2 grid gap-2 text-sm sm:grid-cols-3">
           <RateReadout label="Vapor" value={transfer.vaporMassRate} unit="kg/s" />
           <RateReadout label="Latent from air" value={transfer.latentHeatFromAirRate} unit="W" />

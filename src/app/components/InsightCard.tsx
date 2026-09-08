@@ -26,7 +26,7 @@ export function EquationBlock({
 }) {
   return (
     <div className="rounded-lg border border-line bg-panel px-5 py-5">
-      <p className="font-mono text-sm tracking-wide text-muted">{label}</p>
+      <p className="font-mono text-sm tracking-wide text-cyan">{label}</p>
       <div className="mt-4 overflow-x-auto pb-1 font-serif text-xl leading-loose text-cream md:text-2xl">
         {formula}
       </div>

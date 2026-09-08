@@ -31,7 +31,7 @@ export function SimulatorPage() {
       <div className="mx-auto max-w-6xl px-5 pt-14 pb-6">
         <p className="font-mono text-sm tracking-widest text-gold">03 — Fogger simulator</p>
         <h1 className="mt-3 font-serif text-4xl text-cream md:text-5xl">Droplet Evaporation Model</h1>
-        <p className="mt-4 max-w-3xl text-[15px] leading-7 text-muted">
+        <p className="mt-4 max-w-3xl text-[15px] leading-7">
           Explore how air temperature, humidity, droplet temperature, droplet size, and water flow affect the
           evaporation of fog droplets before they reach the compressor. Add up to three scenarios to compare on the
           same charts.
@@ -92,12 +92,12 @@ export function SimulatorPage() {
 
       <div className="mx-auto max-w-6xl px-5 pt-5 pb-6 border-t border-line">
         <div className="max-w-4xl">
-          <p className="font-mono text-sm tracking-widest">About this model</p>
-          <p className="mt-3 text-[15px] leading-6 text-muted">
+          <p className="font-mono text-sm tracking-widest text-cyan">About this model</p>
+          <p className="mt-3 text-[15px] leading-6">
             This simulator models heat and mass transfer between a representative spherical water droplet and surrounding humid air over a 
             nominal filter-house, with a 0.1 ms timestep. 
           </p>
-          <p className="mt-3 text-[15px] leading-6 text-muted">
+          <p className="mt-3 text-[15px] leading-6">
             Its results were validated as a part of a <TextLink to="/case-study">case study</TextLink> against real-world scenarios within ~1.0% of final air temperatures.
           </p>
         </div>

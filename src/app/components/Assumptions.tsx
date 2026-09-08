@@ -18,7 +18,7 @@ export function Assumptions() {
                 type="button"
                 onClick={() => setTab(t)}
                 className={`px-3 py-2 font-sans text-sm ${
-                tab === t ? "bg-panel text-gold" : "text-muted hover:text-cream"
+                tab === t ? "bg-panel text-gold" : "text-muted hover:text-cyan"
                 }`}
             >
                 {t}
@@ -37,7 +37,7 @@ export function Assumptions() {
 
 function AssumptionNotes() {
   return (
-    <ul className="list-disc space-y-3 pl-5 text-[15px] leading-7 text-muted">
+    <ul className="list-disc space-y-3 pl-5 text-[15px] leading-7">
       <li>A single representative spherical droplet stands in for the spray (not SMD/Dv90 distributions).</li>
       <li>Uniform mixing with a prescribed water-to-air ratio from skid flow and a 3.9 Mpph reference airflow scaled by load.</li>
       <li>No detailed inlet geometry, turbulence, wall impingement, drainage, or re-entrainment.</li>
@@ -60,7 +60,7 @@ function Constants() {
             <th className="px-3 py-2">Meaning</th>
           </tr>
         </thead>
-        <tbody className="text-cream">
+        <tbody className="text-body">
           <Row s={<MathVariable>g</MathVariable>} v={<>9.80665 m/s<sup>2</sup></>} m="Gravity" />
           <Row s={<MathVariable subscript="water">M</MathVariable>} v="0.01801528 kg/mol" m="Water molar mass" />
           <Row s={<MathVariable subscript="da">M</MathVariable>} v="0.0289652 kg/mol" m="Dry-air molar mass" />
@@ -82,8 +82,8 @@ function Row({ s, v, m }: { s: React.ReactNode; v: React.ReactNode; m: React.Rea
   return (
     <tr className="border-t border-line">
       <td className="whitespace-nowrap px-3 py-2 font-serif text-base text-gold">{s}</td>
-      <td className="whitespace-nowrap px-3 py-2 font-mono">{v}</td>
-      <td className="px-3 py-2 font-sans text-muted">{m}</td>
+      <td className="whitespace-nowrap px-3 py-2 font-mono text-cream">{v}</td>
+      <td className="px-3 py-2 font-sans">{m}</td>
     </tr>
   );
 }
@@ -91,7 +91,7 @@ function Row({ s, v, m }: { s: React.ReactNode; v: React.ReactNode; m: React.Rea
 function Validation() {
   return (
     <div className="space-y-4 text-[15px] leading-7">
-      <p className="text-muted">
+      <p>
         Five turbine operating points compare real-world readings with model output. Across these cases, the
         simulated final air temperature is within 1 °F of the measured value, with a mean absolute error of 0.58
         °F.
@@ -148,7 +148,7 @@ function Validation() {
 function References() {
   return (
     <div className="text-[15px]">
-        <ul className="list-disc space-y-3 pl-5 leading-7 text-muted">
+        <ul className="list-disc space-y-3 pl-5 leading-7">
             <li>
             <TextLink to="https://en.wikipedia.org/wiki/Density_of_air">Density of Air</TextLink>. Wikipedia.
             </li>
