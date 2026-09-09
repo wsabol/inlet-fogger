@@ -41,7 +41,23 @@ export function HowItWorksPage() {
         </p>
       </Section>
 
-      <Section id="psychrometrics" kicker="1.2" title="Dry bulb, wet bulb, and saturation">
+      <Section id="evaporation" kicker="1.2" title="Evaporation Kinetics">
+        <p>Evaporation is vaporization of a liquid from its surface. Similar to convention, evaporative mass transfer is
+          can occur naturally or be forced if the air around the liquid is moving relative to the surface.
+        </p>
+        <p>When a liquid evaporates, molecules diffuse from the surface. At the surface of any
+          liquid is a thin layer where the molecules have more energy and the physical state is somewhere
+          between liquid and vapor. This is the <Term id="knudsen-layer" />. Depending on the surface tension
+          and the vapor concentration gradient, molecules from the Knudsen layer will. As high energy molecules in the Knudsen layer diffuse away from the
+          surface, the total energy of the liquid, and therefore temperature, decrease.
+        </p>
+        <p>The process described above is <strong className="text-cream">evaporative cooling</strong>. Heat from the surrounding air 
+          (<Term id="latent-heat" />) will replenish the Knudsen layer, and allow more liquid to evaporate. The
+          surroundings will continually cool until all the liquid evaporates or until the surroundings reach
+          saturation.</p>
+      </Section>
+
+      <Section id="psychrometrics" kicker="1.3" title="Dry bulb, wet bulb, and saturation">
         <p>
           <Term id="dry-bulb" /> is the ordinary air temperature. <Term id="wet-bulb" /> is the lowest temperature air
           can reach by evaporating water at the current humidity. The difference is the <strong className="text-cream">evaporative potential</strong>.
@@ -50,16 +66,12 @@ export function HowItWorksPage() {
           <Term id="relative-humidity" /> is how close the air already is to saturation. High ambient relative humidity leaves little room to cool.
         </p>
         <p>
-          An optimal fogging system will reach the full saturation potential of the air(100% relative humidity) leveraging all the evaporate 
-          potential to cool the air. If the air is not reaching full saturation, the system could be undersized or malfunctioning.
-        </p>
-        <p>
           Try the <TextLink to="/simulator?preset=dry-day">dry-day</TextLink> versus{" "}
           <TextLink to="/simulator?preset=humid-day">humid-day</TextLink> presets to see the saturation ceiling.
         </p>
       </Section>
 
-      <Section id="evaporation" kicker="1.3" title="Latent cooling versus evaporation">
+      <Section id="latent-cooling" kicker="1.4" title="Latent cooling versus evaporation">
         <p>Two stages dominate after the water atomizes into droplets:</p>
         <ol className="list-decimal space-y-3 pl-5">
           <li>
@@ -72,7 +84,7 @@ export function HowItWorksPage() {
           </li>
         </ol>
         <p>
-          Steady-state evaporation is the phase that drives turbine performance. Energy for evaporation is pulled <strong className="text-cream">from the air </strong> to drive <Term id="latent-heat" /> transfer. 
+          Energy for evaporation is pulled from the air to drive <Term id="latent-heat" /> transfer. 
         </p>
         <p>
           <Term id="convection" /> is also a consideration: if droplets are colder than the air, they also cool the air by contact; if they are much
@@ -80,7 +92,7 @@ export function HowItWorksPage() {
         </p>
         <InsightCard kicker="Key insight">
           <p>
-            Faster evaporation is not the same as greater cooling. Hotter water evaporates very quickly in Phase 1 as it approaches wet bulb, and can leave
+            More evaporation is not the same as more cooling. In other words, mass transfer is not the same as heat transfer. Hotter water evaporates very quickly in Phase 1 as it approaches wet bulb, and can leave
             less runoff, but there's less potential for Phase 2 latent-heaer transfer. Put simply, in a closed system the extra enthalpy from the water stays in the droplet-air system. 
             All else equal, the air temperature as it enters the compressor will be slightly higher.
           </p>
@@ -93,7 +105,7 @@ export function HowItWorksPage() {
         </p>
       </Section>
 
-      <Section id="droplet-size" kicker="1.4" title="Droplet size and surface area">
+      <Section id="droplet-size" kicker="1.5" title="Droplet size and surface area">
         <p>
           Evaporation rate scales with surface area. Smaller droplets have more area per unit mass, so they approach
           equilibrium faster. Typical fog nozzles produce droplets on the order of 5-30 μm. In reality, droplet size forms a normal distribution, with a representative{" "}
@@ -113,7 +125,7 @@ export function HowItWorksPage() {
         </p>
       </Section>
 
-      <Section id="residence-time" kicker="1.5" title="Residence time">
+      <Section id="residence-time" kicker="1.6" title="Residence time">
         <p>
           <Term id="residence-time">Residence time</Term> between the fog grid and the compressor inlet is typically on
           the order of a second — often cited as less than 1.5 s. That is the time available for evaporation. 
@@ -124,7 +136,7 @@ export function HowItWorksPage() {
         </p>
       </Section>
 
-      <Section id="overspray" kicker="1.6" title="Overspray and wet compression">
+      <Section id="overspray" kicker="1.7" title="Overspray and wet compression">
         <p>
           If liquid still exists at the compressor inlet, that is <Term id="overspray" />. Some of it may evaporate
           inside the compressor (<Term id="wet-compression" />); some may hit blades, casings, or drains.
