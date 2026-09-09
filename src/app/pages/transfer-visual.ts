@@ -1,10 +1,10 @@
-export const TRANSFER_ARROW_MAX_LENGTH = 112;
+export const TRANSFER_ARROW_MAX_LENGTH = 250;
 
 // Rounded-up maxima from the complete integer slider grid, keeping one fixed linear scale per vector.
 export const TRANSFER_RATE_MAXIMA = {
-  vapor: 750, // 835,
-  latent: 1.5e9, // 2.1e9,
-  convection: 3.6e8, // 4.75e8,
+  vapor: 2.2e3, // 835,
+  latent: 5.3e9, // 2.1e9,
+  convection: 11.9e8, // 4.75e8,
 } as const;
 
 export function scaleTransferArrow(value: number, maximum: number): number {
