@@ -2,8 +2,8 @@ type Comparison = {
     title: string;
     rows: Array<{
         property: string;
-        actual: string;
-        simulated: string;
+        actual: string|number;
+        simulated: string|number;
         unit: string;
     }>;
 };

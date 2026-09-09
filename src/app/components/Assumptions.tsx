@@ -168,7 +168,7 @@ function Validation() {
                         {`${row.simulated}${row.unit}`}
                       </td>
                       <td className="pwhitespace-nowrap px-3 py-2 text-right font-mono text-gold">
-                        {row.property === "Final Air Temperature" ? `${(100 * (row.actual - row.simulated) / row.actual).toFixed(2)}%` : ""}
+                        {row.property === "Final Air Temperature" ? `${(100 * ((+row.actual) - (+row.simulated)) / (+row.actual)).toFixed(2)}%` : ""}
                       </td>
                     </tr>
                   ))}
