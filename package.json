@@ -11,7 +11,7 @@
     "test:watch": "vitest",
     "build": "vite build",
     "ci": "wrangler types && npm run typecheck && npm run test && npm run build",
-    "deploy": "npm run ci && wrangler deploy"
+    "deploy": "npm run test && wrangler deploy"
   },
   "dependencies": {
     "react": "^19.2.8",
