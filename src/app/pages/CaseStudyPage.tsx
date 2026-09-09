@@ -1,5 +1,117 @@
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { InsightCard, TextLink } from "../components/InsightCard";
 import { PageIntro, PageShell, Section } from "../components/PageShell";
+
+const WATER_TEMPERATURE_RESULTS = [
+  { x: 60, y: 1.83 },
+  { x: 80, y: 1.78 },
+  { x: 100, y: 1.72 },
+  { x: 120, y: 1.66 },
+  { x: 140, y: 1.6 },
+  { x: 160, y: 1.54 },
+  { x: 180, y: 1.47 },
+  { x: 200, y: 1.41 },
+];
+
+const chartAxis = {
+  fill: "var(--color-muted)",
+  fontFamily: "IBM Plex Mono",
+  fontSize: 12,
+};
+
+function ModelResultsChart() {
+  return (
+    <figure
+      aria-label="Air density increase by water temperature"
+      className="rounded-lg border border-line bg-panel p-4 md:p-5"
+    >
+      <figcaption className="mb-4 font-mono text-sm tracking-widest text-muted">
+        AIR DENSITY INCREASE BY WATER TEMPERATURE
+      </figcaption>
+      <div className="h-80 w-full">
+        <ResponsiveContainer>
+          <LineChart
+            accessibilityLayer
+            data={WATER_TEMPERATURE_RESULTS}
+            margin={{ top: 8, right: 12, bottom: 28, left: 12 }}
+          >
+            <CartesianGrid stroke="var(--color-line)" vertical={false} />
+            <XAxis
+              dataKey="x"
+              type="number"
+              domain={[60, 200]}
+              ticks={[60, 80, 100, 120, 140, 160, 180, 200]}
+              tick={chartAxis}
+              tickLine={false}
+              axisLine={{ stroke: "var(--color-line)" }}
+              label={{
+                value: "Water temperature (°F)",
+                textAnchor: "middle",
+                position: "bottom",
+                // offset: -18,
+                fill: "var(--color-muted)",
+                fontSize: 12,
+              }}
+            />
+            <YAxis
+              dataKey="y"
+              type="number"
+              domain={[1.4, 1.85]}
+              ticks={[1.4, 1.5, 1.6, 1.7, 1.8]}
+              tick={chartAxis}
+              tickFormatter={(value: number) => value.toFixed(2)}
+              tickLine={false}
+              axisLine={{ stroke: "var(--color-line)" }}
+              width={58}
+              label={{
+                value: "Air density increase (%)",
+                textAnchor: "middle",
+                angle: -90,
+                position: "left",
+                fill: "var(--color-muted)",
+                fontSize: 12,
+              }}
+            />
+            <Tooltip
+              cursor={{ stroke: "var(--color-muted)", strokeDasharray: "3 3" }}
+              contentStyle={{
+                background: "var(--color-ink-2)",
+                border: "1px solid var(--color-line)",
+                borderRadius: 6,
+                color: "var(--color-cream)",
+                fontSize: 13,
+              }}
+              labelFormatter={(value) => `Water temperature: ${value} °F`}
+              formatter={(value) => [`${Number(value).toFixed(2)}%`, "Air density increase"]}
+            />
+            <Line
+              dataKey="y"
+              name="Air density increase"
+              type="linear"
+              stroke="var(--color-gold)"
+              strokeWidth={2.5}
+              dot={{
+                r: 4,
+                fill: "var(--color-gold)",
+                stroke: "var(--color-panel)",
+                strokeWidth: 2,
+              }}
+              activeDot={{ r: 5, fill: "var(--color-gold-2)", stroke: "var(--color-cream)" }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </figure>
+  );
+}
 
 export function CaseStudyPage() {
   return (
@@ -72,7 +184,7 @@ export function CaseStudyPage() {
           Cooler water produced a greater air-density increase in the transient droplet model. The water temperature's effect
           acted opposite to the original assumption. 
         </p>
-        {/* TODO: Add the model results here */}
+        <ModelResultsChart />
         <p>
           Reproduce the comparison in the Simulator with the <TextLink to="/simulator?preset=cold-water">cold</TextLink>,{" "}
           <TextLink to="/simulator?preset=ambient-water">ambient</TextLink>, and{" "}
