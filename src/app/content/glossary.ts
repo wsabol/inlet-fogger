@@ -1,4 +1,19 @@
 export const GLOSSARY = {
+  "gas-turbine": {
+    term: "Gas turbine",
+    href: "/how-it-works#inlet-temperature",
+    meaning: "A continuous-flow engine in which a compressor pressurizes inlet air, fuel is burned in that air, and expanding hot gas drives a turbine. Inlet-air conditions affect the mass flow the compressor can take in and the power the machine can produce.",
+  },
+  "evaporative-cooling": {
+    term: "Evaporative cooling",
+    href: "/how-it-works#evaporation",
+    meaning: "Cooling that occurs when liquid water absorbs energy from its surroundings as it changes into vapor. Cooling is limited by the available water and the air's approach to saturation.",
+  },
+  "evaporative-potential": {
+    term: "Evaporative potential",
+    href: "/how-it-works#psychrometrics",
+    meaning: "The difference between dry-bulb and wet-bulb temperature, indicating the maximum ideal temperature reduction available from evaporative cooling at the current air conditions.",
+  },
   "dry-bulb": {
     term: "Dry-bulb temperature",
     href: "/how-it-works#psychrometrics",
@@ -58,6 +73,16 @@ export const GLOSSARY = {
     term: "Knudsen layer",
     href: "/how-it-works#evaporation",
     meaning: "At the interface of a vapor and a liquid/solid, the gas interaction with the liquid/solid dominates the gas behavior, and the gas is, very locally, not in equilibrium. This region, several mean free path lengths thick, is called the Knudsen layer.",
+  },
+  "lumped-capacitance": {
+    term: "Lumped capacitance",
+    href: "/how-it-works#lumped-capacitance",
+    meaning: "A heat-transfer approximation that represents each modeled body or fluid region with one uniform temperature, neglecting temperature gradients within it.",
+  },
+  "ideal-gas": {
+    term: "Ideal gas",
+    href: "/how-it-works#ideal-gas",
+    meaning: "A theoretical gas that follows the ideal gas law. The model treats air this way as an approximation when calculating selected humid-air properties.",
   },
 } as const;
 

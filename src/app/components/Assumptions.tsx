@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { COMPARISONS } from "../content/fieldComparisons";
 import { MathVariable, TextLink } from "./InsightCard";
+import { Term } from "./Term";
 
 const TABS = ["Validation", "Constants", "Assumptions", "References"] as const;
 type Tab = (typeof TABS)[number];
@@ -50,7 +51,7 @@ function AssumptionNotes() {
       description: "Residence times are dependent on air stream velocity and filter house design but most range from 1-2 seconds.",
     },
     {
-      headline: "Lumped Capacitance model is valid for the droplet and air.",
+      headline: <><Term id="lumped-capacitance" case="title" /> model is valid for the droplet and air.</>,
       description: "This assumption allows the model to represent the droplet and air each with a single temperature, so we can focus on the interaction between the fluids rather than temperature gradients within the fluids.",
     },
     {
@@ -62,7 +63,7 @@ function AssumptionNotes() {
       description: "In practice, droplet, temperature, and humidity will not be uniform across the filter house. This may account for some variance in the model, although these fluctions will disspate over the droplet's residence time.",
     },
     {
-      headline: "Air is an ideal gas.",
+      headline: <>Air is an <Term id="ideal-gas" case="lower" />.</>,
       description: "This is a very common assumption, albeit impossible for any real gas. Water vapor is not as ideal as air, but with the low water vapor concentrations in these simulations, the inaccuracies are negligible. This model uses the ideal gas law in some instances to determine some properties of humid air where it cannot be determined by empirical or other psychrometric means.",
     },
   ];
@@ -71,7 +72,7 @@ function AssumptionNotes() {
     <div className="leading-6">
       <ul className="list-disc space-y-3 pl-5">
         {assumptions.map((assumption, index) => (
-          <li key={index}><span className='text-cream'>{assumption.headline}</span> {assumption.description}</li>
+          <li key={index}><span className="text-cream">{assumption.headline}</span> {assumption.description}</li>
         ))}
       </ul>
 

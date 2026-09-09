@@ -65,7 +65,7 @@ export function GuidePage() {
       <Section id="fallout" kicker="4.4" title="Drainage and liquid fallout">
         <p>
           Filter-house runoff does not map one-to-one onto cooling or system health. It fluctuates with climate. If there
-          is never any runoff, the system may be under-fogging. Dirty nozzles also increase <Term id="liquid-fallout" />{" "}
+          is never any runoff, the system may be under-fogging. Dirty nozzles also increase <Term id="liquid-fallout" case="lower" />{" "}
           and should be inspected — but maximizing cooling usually implies <em>some</em> liquid never evaporates.
         </p>
         <p>

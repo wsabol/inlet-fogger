@@ -3,19 +3,18 @@ import { InsightCard, TextLink } from "../components/InsightCard";
 import { PageIntro, PageShell, Section } from "../components/PageShell";
 import { Term } from "../components/Term";
 import { GLOSSARY } from "../content/glossary";
-// TODO: expand the glossary with more terms from this page
 
 export function HowItWorksPage() {
   return (
     <PageShell>
       <PageIntro index="01 — How fogging works" title="Inlet cooling, explained">
         <p>
-          Gas turbine inlet foggers are systems designed to enhance turbine output by increasing the density of inlet air. 
-          Inlet foggers inject a fine spray of water into the airstream ahead of the compressor. Nozzles atomize the water into <strong className="text-cream">droplets</strong> that are typically on the order of 5-30 μm in diameter. 
+          <Term id="gas-turbine" case="title" /> inlet foggers are systems designed to enhance turbine output by increasing the density of inlet air.
+          Inlet foggers inject a fine spray of water into the airstream ahead of the compressor. Nozzles atomize the water into droplets that are typically on the order of 5-30 μm in diameter.
           The droplets evaporate, pulling heat from the air. Cooler air is denser, so mass flow — and output — are higher though the turbine.
         </p>
         <p>
-          Fogging is primarily an <strong className="text-cream">evaporative cooling</strong> technology, not a refrigerated chiller. Heat is taken from the air to vaporize water at
+          Fogging is primarily an <Term id="evaporative-cooling" case="lower" /> technology, not a refrigerated chiller. Heat is taken from the air to vaporize water at
           the droplet surface. Cooling stops when the water is gone or the airstream reaches saturation.
         </p>
         <figure className="mx-auto max-w-5xl px-5 pb-8">
@@ -33,8 +32,8 @@ export function HowItWorksPage() {
 
       <Section id="inlet-temperature" kicker="1.1" title="Why inlet temperature matters">
         <p>
-          A gas turbine is a volumetric machine: the compressor swallows a volume of air, not a guaranteed mass. 
-          But the power output is directly proportional to the <strong className="text-cream">mass flow rate</strong> of the airstream through the turbine.
+          A <Term id="gas-turbine" case="lower" /> is a volumetric machine: the compressor swallows a volume of air, not a guaranteed mass.
+          But the power output is directly proportional to the mass flow rate of the airstream through the turbine.
         </p>
         <p>On a hot day the same volume of air weighs less than on a cold day, fueling and firing temperatures are constrained, and output collapses just
           as demand peaks. Industry rules of thumb put the output gain from inlet cooling on the order of 0.5-0.9% per
@@ -48,23 +47,23 @@ export function HowItWorksPage() {
         </p>
         <p>When a liquid evaporates, molecules diffuse from the surface. At the surface of any
           liquid is a thin layer where the molecules have more energy and the physical state is somewhere
-          between liquid and vapor. This is the <Term id="knudsen-layer" />. Depending on the surface tension
-          and the vapor concentration gradient, molecules from the Knudsen layer will. As high energy molecules in the Knudsen layer diffuse away from the
-          surface, the total energy of the liquid, and therefore temperature, decrease.
+          between liquid and vapor. This is the <Term id="knudsen-layer" case="title" />. Depending on the surface tension
+          and the vapor concentration gradient, molecules from the Knudsen layer may diffuse into the air naturally or forcibly.
+          As high energy molecules in the Knudsen layer diffuse away from the surface, the total energy of the liquid, and therefore temperature, decrease.
         </p>
-        <p>The process described above is <strong className="text-cream">evaporative cooling</strong>. Heat from the surrounding air 
-          (<Term id="latent-heat" />) will replenish the Knudsen layer, and allow more liquid to evaporate. The
-          surroundings will continually cool until all the liquid evaporates or until the surroundings reach
+        <p>The process described above is <Term id="evaporative-cooling" case="lower" />. Heat from the surrounding air
+           replenishes the Knudsen layer allowing more liquid to evaporate. The surroundings will continually cool as it provides
+           that <Term id="latent-heat" case="lower" /> until all the liquid evaporates or until the surroundings reach
           saturation.</p>
       </Section>
 
       <Section id="psychrometrics" kicker="1.3" title="Dry bulb, wet bulb, and saturation">
         <p>
-          <Term id="dry-bulb" /> is the ordinary air temperature. <Term id="wet-bulb" /> is the lowest temperature air
-          can reach by evaporating water at the current humidity. The difference is the <strong className="text-cream">evaporative potential</strong>.
+          <Term id="dry-bulb" case="title" /> is the ordinary air temperature. <Term id="wet-bulb" case="title" /> is the lowest temperature air
+          can reach by evaporating water at the current humidity. The difference is the <Term id="evaporative-potential" case="lower" />.
         </p>
         <p>
-          <Term id="relative-humidity" /> is how close the air already is to saturation. High ambient relative humidity leaves little room to cool.
+          <Term id="relative-humidity" case="title" /> is how close the air already is to saturation. High ambient relative humidity leaves little room to cool.
         </p>
         <p>
           Try the <TextLink to="/simulator?preset=dry-day">dry-day</TextLink> versus{" "}
@@ -85,16 +84,16 @@ export function HowItWorksPage() {
           </li>
         </ol>
         <p>
-          Energy for evaporation is pulled from the air to drive <Term id="latent-heat" /> transfer. 
+          Energy for evaporation is pulled from the air to drive <Term id="latent-heat" case="lower" /> transfer.
         </p>
         <p>
-          <Term id="convection" /> is also a consideration: if droplets are colder than the air, they also cool the air by contact; if they are much
+          <Term id="convection" case="title" /> is also a consideration: if droplets are colder than the air, they also cool the air by contact; if they are much
           hotter, they add heat to the same airstream that evaporation is trying to cool.
         </p>
         <InsightCard kicker="Key insight">
           <p>
             More evaporation is not the same as more cooling. In other words, mass transfer is not the same as heat transfer. Hotter water evaporates very quickly in Phase 1 as it approaches wet bulb, and can leave
-            less runoff, but there's less potential for Phase 2 latent-heaer transfer. Put simply, in a closed system the extra enthalpy from the water stays in the droplet-air system. 
+            less runoff, but there's less potential for Phase 2 latent-heat transfer. Put simply, in a closed system the extra enthalpy from the water stays in the droplet-air system.
             All else equal, the air temperature as it enters the compressor will be slightly higher.
           </p>
         </InsightCard>
@@ -128,7 +127,7 @@ export function HowItWorksPage() {
 
       <Section id="residence-time" kicker="1.6" title="Residence time">
         <p>
-          <Term id="residence-time">Residence time</Term> between the fog grid and the compressor inlet is typically on
+          <Term id="residence-time" case="title" /> between the fog grid and the compressor inlet is typically on
           the order of a second — often cited as less than 1.5 s. That is the time available for evaporation. 
         </p>
         <p>
@@ -139,8 +138,8 @@ export function HowItWorksPage() {
 
       <Section id="overspray" kicker="1.7" title="Overspray and wet compression">
         <p>
-          If liquid still exists at the compressor inlet, that is <Term id="overspray" />. Some of it may evaporate
-          inside the compressor (<Term id="wet-compression" />); some may hit blades, casings, or drains.
+          If liquid still exists at the compressor inlet, that is <Term id="overspray" case="lower" />. Some of it may evaporate
+          inside the compressor (<Term id="wet-compression" case="lower" />); some may hit blades, casings, or drains.
         </p>
         <p>
           Some drainage is normal in a well-designed fogging system. Too much or increasing 
@@ -150,12 +149,14 @@ export function HowItWorksPage() {
 
       <Section id="glossary" kicker="1.7" title="Glossary">
         <dl className="space-y-3">
-          {Object.entries(GLOSSARY).map(([id, entry]) => (
-            <div key={id} id={id} className="scroll-mt-24">
-              <dt className="font-sans text-cream">{entry.term}</dt>
-              <dd className="text-sm leading-6 text-muted">{entry.meaning}</dd>
-            </div>
-          ))}
+          {Object.entries(GLOSSARY)
+            .sort(([, a], [, b]) => a.term.localeCompare(b.term))
+            .map(([id, entry]) => (
+              <div key={id} id={id} className="scroll-mt-24">
+                <dt className="font-sans text-cream font-bold">{entry.term}</dt>
+                <dd className="text-sm leading-6 text-muted">{entry.meaning}</dd>
+              </div>
+            ))}
         </dl>
       </Section>
     </PageShell>
