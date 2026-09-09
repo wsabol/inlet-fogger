@@ -21,7 +21,7 @@ export function HowItWorksPage() {
           <img
             src={schematicUrl}
             alt="Basic inlet fogger system schematic. Ambient inlet air passes through an inlet air filter and fogging nozzle zone within an inlet house before entering a gas turbine. A water supply and high-pressure pump feed the fogger nozzle manifold. Unevaporated water drains from the inlet house."
-            className="w-full rounded-sm border border-line bg-white"
+            className="w-full rounded-md border border-line bg-white"
           />
           <figcaption className="mt-3 font-sans text-sm leading-6 text-muted">
             Inlet fogger schematic: high-pressure water is injected at the fogger nozzles into the filtered airstream.

@@ -18,12 +18,12 @@ export function HomePage() {
             simulation and practical engineering lessons from real-world fogging installations.
           </p> 
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link to="/simulator" className="bg-gold px-5 py-2.5 font-sans text-sm font-medium text-ink">
+            <Link to="/simulator" className="rounded bg-gold px-5 py-2.5 font-sans text-sm font-medium text-ink">
               Open Simulator →
             </Link>
             <Link
               to="/how-it-works"
-              className="border border-cream/30 px-5 py-2.5 font-sans text-sm text-cream hover:border-gold hover:text-gold"
+              className="rounded border border-cream/30 px-5 py-2.5 font-sans text-sm text-cream hover:border-gold hover:text-gold"
             >
               How It Works
             </Link>
@@ -80,7 +80,7 @@ export function HomePage() {
           </p>
           <Link
               to="/case-study"
-              className="mt-4 inline-block border border-cream/30 px-5 py-2.5 font-sans text-sm text-cream hover:border-gold hover:text-gold"
+              className="rounded mt-4 inline-block border border-cream/30 px-5 py-2.5 font-sans text-sm text-cream hover:border-gold hover:text-gold"
             >
               Read more →
             </Link>

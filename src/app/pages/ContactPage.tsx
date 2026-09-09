@@ -36,7 +36,7 @@ export function ContactPage() {
   }
 
   const fieldClass =
-    "mt-2 w-full rounded-md border border-line bg-ink-2 px-3 py-2.5 text-[15px] text-cream outline-none transition placeholder:text-muted/60 focus:border-gold focus:ring-1 focus:ring-gold";
+    "mt-2 w-full rounded border border-line bg-ink-2 px-3 py-2.5 text-[15px] text-cream outline-none transition placeholder:text-muted/60 focus:border-gold focus:ring-1 focus:ring-gold";
 
   return (
     <PageShell>
@@ -79,7 +79,7 @@ export function ContactPage() {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="rounded-md bg-gold px-5 py-2.5 font-sans text-sm font-semibold text-ink transition hover:bg-gold-2 disabled:cursor-wait disabled:opacity-60"
+              className="rounded bg-gold px-5 py-2.5 font-sans text-sm font-semibold text-ink transition hover:bg-gold-2 disabled:cursor-wait disabled:opacity-60"
             >
               {status === "sending" ? "Sending…" : "Send message"}
             </button>

@@ -156,7 +156,7 @@ export function InputsPanel({
             type="button"
             disabled={busy}
             onClick={() => onRun(undefined, false)}
-            className="bg-gold px-4 py-2.5 font-sans text-sm font-medium text-ink hover:bg-gold-2 disabled:opacity-60"
+            className="rounded bg-gold px-4 py-2.5 font-sans text-sm font-medium text-ink hover:bg-gold-2 disabled:opacity-60"
           >
             {busy ? "Running…" : "Run simulation"}
           </button>
@@ -165,7 +165,7 @@ export function InputsPanel({
               type="button"
               disabled={busy || comparisonCount >= 3}
               onClick={onCompare}
-              className="border border-cream/30 px-4 py-2 font-sans text-sm text-cream hover:border-gold hover:text-gold disabled:opacity-50"
+              className="rounded border border-cream/30 px-4 py-2 font-sans text-sm text-cream hover:border-gold hover:text-gold disabled:opacity-50"
             >
               Compare scenario
             </button>
@@ -174,7 +174,7 @@ export function InputsPanel({
             <button
               type="button"
               onClick={onClearComparisons}
-              className="font-sans text-sm text-muted hover:text-cream"
+              className="rounded font-sans text-sm text-muted hover:text-cream"
             >
               Clear comparisons
             </button>
