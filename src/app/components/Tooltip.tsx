@@ -13,9 +13,26 @@ type TooltipProps = {
   content: React.ReactNode;
 };
 
+type TooltipStyle = React.CSSProperties & {
+  "--arrow-left": string;
+  "--tooltip-left": string;
+  "--tooltip-top": string;
+};
+
 const VIEWPORT_GUTTER = 12;
 const TOOLTIP_GAP = 8;
-const FADE_DURATION_MS = 400;
+const FADE_FALLBACK_MS = 400;
+
+function getTooltipFadeMs(tooltip: HTMLElement | null) {
+  if (!tooltip) return FADE_FALLBACK_MS;
+
+  const raw = getComputedStyle(tooltip).getPropertyValue("--tooltip-fade").trim();
+  const parsed = Number.parseFloat(raw);
+  if (Number.isNaN(parsed)) return FADE_FALLBACK_MS;
+  if (raw.endsWith("ms")) return parsed;
+  if (raw.endsWith("s")) return parsed * 1000;
+  return parsed;
+}
 
 export function Tooltip({ children, content }: TooltipProps) {
   const id = useId();
@@ -42,7 +59,10 @@ export function Tooltip({ children, content }: TooltipProps) {
     isOpenRef.current = false;
     setIsVisible(false);
     if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
-    hideTimerRef.current = setTimeout(() => setIsRendered(false), FADE_DURATION_MS);
+    hideTimerRef.current = setTimeout(
+      () => setIsRendered(false),
+      getTooltipFadeMs(tooltipRef.current),
+    );
   };
 
   useEffect(() => {
@@ -95,10 +115,15 @@ export function Tooltip({ children, content }: TooltipProps) {
     };
   }, [isRendered]);
 
+  const tooltipStyle: TooltipStyle = {
+    "--arrow-left": `${position?.arrowLeft ?? 0}px`,
+    "--tooltip-left": `${position?.left ?? 0}px`,
+    "--tooltip-top": `${position?.top ?? 0}px`,
+  };
+
   return (
     <span
       ref={triggerRef}
-      className="inline"
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) hideTooltip();
       }}
@@ -117,27 +142,15 @@ export function Tooltip({ children, content }: TooltipProps) {
           ref={tooltipRef}
           id={id}
           role="tooltip"
-          className={`pointer-events-none fixed z-50 block w-max max-w-[min(20rem,calc(100vw-1.5rem))] rounded-md border border-line bg-dark px-3 py-2 font-sans text-xs font-normal leading-5 text-muted shadow-xl transition-opacity duration-150 ease-out motion-reduce:transition-none ${
-            isVisible && position ? "opacity-100" : "opacity-0"
-          }`}
-          style={{
-            left: position?.left ?? 0,
-            top: position?.top ?? 0,
-            visibility: position ? "visible" : "hidden",
-          }}
+          className="tooltip"
+          data-placed={position ? true : undefined}
+          data-visible={isVisible && position ? true : undefined}
+          data-placement={position?.placement}
+          onMouseEnter={showTooltip}
+          onMouseLeave={hideTooltip}
+          style={tooltipStyle}
         >
           {content}
-          {position && (
-            <span
-              aria-hidden="true"
-              className={`absolute size-2 -translate-x-1/2 rotate-45 border-line bg-dark ${
-                position.placement === "above"
-                  ? "top-full -translate-y-1/2 border-r border-b"
-                  : "bottom-full translate-y-1/2 border-l border-t"
-              }`}
-              style={{ left: position.arrowLeft }}
-            />
-          )}
         </span>,
         document.body,
       )}
