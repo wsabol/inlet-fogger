@@ -43,7 +43,7 @@ export function HowItWorksPage() {
       </Section>
 
       <Section id="evaporation" kicker="1.2" title="Evaporation Kinetics">
-        <p>Evaporation is vaporization of a liquid from its surface. Similar to convention, evaporative mass transfer is
+        <p>Evaporation is vaporization of a liquid from its surface. Similar to convection, evaporative mass transfer is
           can occur naturally or be forced if the air around the liquid is moving relative to the surface.
         </p>
         <p>When a liquid evaporates, molecules diffuse from the surface. At the surface of any
