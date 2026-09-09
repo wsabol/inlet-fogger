@@ -32,7 +32,7 @@
     </style>
   </defs>
 
-  <rect width="1600" height="900" fill="#ffffff"/>
+  <rect width="1600" height="1000" fill="#f7f5f1"/>
 
   <!-- Inlet house -->
   <path d="M200 220 H1100 L1170 285 V650 H200 Z" fill="url(#house)" stroke="#52616b" stroke-width="6"/>
