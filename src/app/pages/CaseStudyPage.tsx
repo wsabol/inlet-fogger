@@ -219,12 +219,14 @@ export function CaseStudyPage() {
 
       <Section title="Conclusions">
         <ol className="list-disc space-y-3 pl-5">
+          <li>The primary goal of inlet fogging is to increase the air density so that the mass flow through the turbine and the total power generated increase. Increasing water temperature alone does not accomplish this.</li>
+          <li>Colder fogger water will not evaporate as quickly as warm water but will result in a cooler compressor inlet ir temperature.</li>
           <li>The study's findings show a strong reliability signal associated with boiler-feedwater fogging, not a guaranteed MW benefit.</li>
           <li>Healthy nozzles can matter more than the relatively small effect of water temperature.</li>
           <li>Reliability and operational availability are key factors in long-term performance.</li>
           <li>Separate thermodynamic effectiveness from mechanical reliability.</li>
           <li>
-            Before assigning a thermodynamic cause to an MW difference, normalize ambient conditions and check water flow, header
+            Before assigning a thermodynamic cause to a MW difference, normalize ambient conditions and check water flow, header
             pressure, enabled zones, nozzle condition, and control state.
           </li>
         </ol>
