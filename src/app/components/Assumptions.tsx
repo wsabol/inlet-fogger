@@ -217,7 +217,7 @@ function References() {
         </li>
       </ol>
       <p className="mt-6 text-muted">
-        Formal citations are available in the accompanying <TextLink to="/Fogger-Case-Study-White-Paper.pdf">white paper</TextLink>.
+        Formal citations are available in the accompanying <TextLink to="/Fogger-Study-White-Paper.pdf">white paper</TextLink>.
       </p>
       <p className="mt-2 text-muted leading-7">
           See also <TextLink to="/how-it-works">How fogging works</TextLink>, and the{" "}

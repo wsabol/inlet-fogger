@@ -239,7 +239,7 @@ export function CaseStudyPage() {
           and compares its predicted final-air temperatures with field data.
         </p>
         <a
-          href="/Fogger-Case-Study-White-Paper.pdf"
+          href="/Fogger-Study-White-Paper.pdf"
           target="_blank"
           rel="noreferrer"
           className="inline-block border border-cream/30 px-5 py-2.5 font-sans text-sm text-cream hover:border-gold hover:text-gold"
