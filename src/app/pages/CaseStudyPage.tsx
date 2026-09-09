@@ -4,7 +4,7 @@ import { PageIntro, PageShell, Section } from "../components/PageShell";
 export function CaseStudyPage() {
   return (
     <PageShell>
-      <PageIntro index="Field investigation" title="The 2–3 MW mystery">
+      <PageIntro index="Field investigation" title="The megawatt mystery">
         <p>
           A fleet investigation separated two questions that can look identical from the control room: is a fogging
           system thermodynamically better, or is it simply healthier and more available?
@@ -119,14 +119,18 @@ export function CaseStudyPage() {
       </Section>
 
       <Section title="Read the white paper">
-        <p>The white paper develops the droplet model and compares its predicted final-air temperatures with field data.</p>
+        <p>
+          The model and accompanying paper, <cite>Theoretical Analysis of Gas Turbine Inlet Foggers and their
+          Effectiveness</cite>, were published in the proceedings of <strong>POWER-GEN International 2012</strong>. The paper develops the droplet model
+          and compares its predicted final-air temperatures with field data.
+        </p>
         <a
           href="/Fogger-Case-Study-White-Paper.pdf"
           target="_blank"
           rel="noreferrer"
           className="inline-block border border-cream/30 px-5 py-2.5 font-sans text-sm text-cream hover:border-gold hover:text-gold"
         >
-          Fogger Case Study White Paper (PDF) ↗
+          Fogger Study White Paper (PDF) ↗
         </a>
       </Section>
     </PageShell>

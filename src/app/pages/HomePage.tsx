@@ -75,8 +75,8 @@ export function HomePage() {
           <p className="font-mono text-sm tracking-widest text-gold">Case Study</p>
           <h2 className="mt-2 font-serif text-3xl text-cream">More Evaporation. Less Cooling?</h2>
           <p className="mt-3 max-w-2xl text-[15px] leading-7">
-            A fleet study asked whether hotter fogging water could explain a 2-3 MW difference between units. 
-            What does it mean when more of the fogger water is being evaporated? How does this effect performance?
+            A fleet study and theoretical analysis featured at <strong>POWER-GEN International 2012</strong> asked whether hotter fogging water could explain a 2-3 MW difference between units. 
+            What does it mean when more of the fogger water is evaporated? How does this effect performance?
           </p>
           <Link
               to="/case-study"
