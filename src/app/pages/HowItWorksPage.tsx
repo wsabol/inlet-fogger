@@ -3,6 +3,7 @@ import { InsightCard, TextLink } from "../components/InsightCard";
 import { PageIntro, PageShell, Section } from "../components/PageShell";
 import { Term } from "../components/Term";
 import { GLOSSARY } from "../content/glossary";
+// TODO: expand the glossary with more terms from this page
 
 export function HowItWorksPage() {
   return (
