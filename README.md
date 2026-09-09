@@ -105,5 +105,5 @@ Client-side routes fall back to the application shell through Cloudflare's `sing
 
 ## Further reading
 
-The case-study white paper is available at `public/Fogger-Case-Study-White-Paper.pdf` and is linked from the site.
+The case-study white paper is available at `public/Fogger-Study-White-Paper.pdf` and is linked from the site.
 
