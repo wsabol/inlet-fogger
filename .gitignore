@@ -9,6 +9,4 @@ tsconfig.tsbuildinfo
 tsconfig.app.tsbuildinfo
 tsconfig.node.tsbuildinfo
 .vite
-
-docs
-docs/*
+.product
