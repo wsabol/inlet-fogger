@@ -22,6 +22,11 @@ export function GuidePage() {
           meter may still look healthy while atomization has collapsed.
         </p>
         <p>
+          Fogging nozzles typically wear out over a period of several years with accompanying loss in 
+          cooling effectiveness and increase in liquid fallout inside inlet filter house and compressor inlet manifold.
+          Replacement of worn nozzles restores cooling efficiency and minimizes liquid fallout.
+        </p>
+        <p>
           See <TextLink to="/how-it-works#droplet-size">why droplet size matters</TextLink> and compare{" "}
           <TextLink to="/simulator?preset=small-droplets">small</TextLink> vs.{" "}
           <TextLink to="/simulator?preset=large-droplets">large droplet</TextLink> presets.
@@ -143,10 +148,8 @@ export function GuidePage() {
       <Section id="inspection" kicker="4.8" title="Inspection and maintenance">
         <p>
           Walkdowns that only check "pumps running, flow on" miss the performance-critical parts: nozzle spray
-          quality, header leaks, vibration, filter pressure differential, and drain paths. Historical vendor-specific findings from the
-          original study period should be checked against current hardware rather than copied as eternal rules.
+          quality, header leaks, vibration, filter pressure differential, and drain paths.
         </p>
-        <h3 className="pt-2 font-serif text-xl text-cream">Basic routine inspections and maintenance</h3>
         <ul className="list-disc space-y-2 pl-5">
           <li>Check for abnormal leakage, wall wetting, pump noise, or vibration.</li>
           <li>Check suction and discharge filter condition or differential pressure.</li>

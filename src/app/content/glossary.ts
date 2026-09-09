@@ -54,6 +54,11 @@ export const GLOSSARY = {
     href: "/how-it-works#evaporation",
     meaning: "The transfer of heat between fluids of different temperatures.",
   },
+  "knudsen-layer": {
+    term: "Knudsen layer",
+    href: "/how-it-works#evaporation",
+    meaning: "At the interface of a vapor and a liquid/solid, the gas interaction with the liquid/solid dominates the gas behavior, and the gas is, very locally, not in equilibrium. This region, several mean free path lengths thick, is called the Knudsen layer.",
+  },
 } as const;
 
 export type GlossaryId = keyof typeof GLOSSARY;

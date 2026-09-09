@@ -36,16 +36,53 @@ export function Assumptions() {
 }
 
 function AssumptionNotes() {
+  const assumptions = [
+    {
+      headline: "Droplets exit the nozzle at the same velocity as the air.",
+      description: "For a very short time after exiting the nozzle, there are differences between the air velocity and droplet velocity, meaning there is forced heat transfer. Due to their size and low Reynolds number (<1), droplets attain air stream velocity within a few milliseconds. The difference between natural and forced evaporation over that short time is negligible.",
+    },
+    {
+      headline: "A single representative spherical droplet stands in for the spray.",
+      description: "This is a common assumption. In practice, droplet size and eccentricity follow a normal distribution. The overall effect is neglible for the purposes of this model.",
+    },
+    {
+      headline: "The residence time within the gas turbine filter house is 1.5 seconds.",
+      description: "Residence times are dependent on air stream velocity and filter house design but most range from 1-2 seconds.",
+    },
+    {
+      headline: "Lumped Capacitance model is valid for the droplet and air.",
+      description: "This assumption allows the model to represent the droplet and air each with a single temperature, so we can focus on the interaction between the fluids rather than temperature gradients within the fluids.",
+    },
+    {
+      headline: "No detailed inlet geometry or turbulence.",
+      description: "Droplets in turbulent surroundings experience much faster heat and mass transfer rates. Inlet geometry, support posts, and other irregularities add some turbulence.",
+    },
+    {
+      headline: "Droplets are distributed uniformly in the air upon exiting the nozzle.",
+      description: "In practice, droplet, temperature, and humidity will not be uniform across the filter house. This may account for some variance in the model, although these fluctions will disspate over the droplet's residence time.",
+    },
+    {
+      headline: "Air is an ideal gas.",
+      description: "This is a very common assumption, albeit impossible for any real gas. Water vapor is not as ideal as air, but with the low water vapor concentrations in these simulations, the inaccuracies are negligible. This model uses the ideal gas law in some instances to determine some properties of humid air where it cannot be determined by empirical or other psychrometric means.",
+    },
+  ];
+
   return (
-    <ul className="list-disc space-y-3 pl-5 text-[15px] leading-7">
-      <li>A single representative spherical droplet stands in for the spray (not SMD/Dv90 distributions).</li>
-      <li>Uniform mixing with a prescribed water-to-air ratio from skid flow and a 3.9 Mpph reference airflow scaled by load.</li>
-      <li>No detailed inlet geometry, turbulence, wall impingement, drainage, or re-entrainment.</li>
-      <li>No compressor-stage or Brayton-cycle model; no MW prediction.</li>
-      <li>Fixed 1.5 s maximum residence time.</li>
-      <li>Empirical property polynomials valid over a limited temperature band (inlet dry-bulb 40–140 °F in this UI).</li>
-      <li>Integration stops if the Knudsen number exceeds ~0.08 (continuum treatment no longer applicable) or if rounded temperature and diameter stop changing.</li>
-    </ul>
+    <div className="leading-6">
+      <ul className="list-disc space-y-3 pl-5">
+        {assumptions.map((assumption, index) => (
+          <li key={index}><span className='text-cream'>{assumption.headline}</span> {assumption.description}</li>
+        ))}
+      </ul>
+
+      <p className="mt-6 mb-2 text-muted font-bold text-[15px]">Limitations of the model</p>
+      <ul className="list-disc space-y-3 pl-5">
+        <li>No compressor-stage or Brayton-cycle model; no MW prediction.</li>
+        <li>Fixed 1.5 s maximum residence time.</li>
+        <li>The model is scaled to a 3.9 Mpph reference airflow, which is the full-load airflow for a standard 700 MW gas turbine.</li>
+        <li>Integration stops if the Knudsen number exceeds ~0.08 (continuum treatment no longer applicable) or if rounded temperature and diameter stop changing.</li>
+      </ul>
+    </div>
   );
 }
 
@@ -148,43 +185,43 @@ function Validation() {
 function References() {
   return (
     <div className="text-[15px]">
-        <ul className="list-disc space-y-3 pl-5 leading-7">
-            <li>
-            <TextLink to="https://en.wikipedia.org/wiki/Density_of_air">Density of Air</TextLink>. Wikipedia.
-            </li>
-            <li>
-            <TextLink to="https://en.wikipedia.org/wiki/Knudsen_layer">Knudsen layer</TextLink>. Wikipedia.
-            </li>
-            <li>
-            <TextLink to="https://en.wikipedia.org/wiki/Arden_Buck_equation">Arden Buck Equation</TextLink>. Wikipedia.
-            </li>
-            <li>
-            <TextLink to="https://en.wikipedia.org/wiki/Clausius%E2%80%93Clapeyron_relation">Clausius-Clapeyron relation</TextLink>. Wikipedia.
-            </li>
-            <li>
-            <TextLink to="https://www.mhtlab.uwaterloo.ca/pdf_reports/mhtl_G01.pdf">Properties of Dry Air at One Atmosphere</TextLink>.
-            F.J. McQuillan, J.R. Culham and M.M. Yovanovich (1984).
-            </li>
-            <li>
-            <TextLink to="https://web.archive.org/web/20120919171021/http://www.lsbu.ac.uk/water/molecule.html">Water Structure and Science: Water molecule structure</TextLink>.
-            Chaplin, Martin. (2 July, 2012). 
-            </li>
-            <li>
-            <TextLink to="https://www.engineeringtoolbox.com/water-vapor-d_979.html">Water Vapor - Specific Heat. Water Vapor - Specific Heat</TextLink>
-            The Engineering Toolbox. (n.d.). 
-            </li>
-            <li>
-            <TextLink to="https://web.archive.org/web/20120807032523/http://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html">Earth Fact Sheet: Terrestrial Atmosphere</TextLink>.
-            NASA Goddard Space Flight Center. Grayzeck, Ed. (17 November, 2010). 
-            </li>
-        </ul>
-        <p className="mt-4 text-muted leading-7">
-            Formal citations are available in the accompanying <TextLink to="/case-study">case study</TextLink> and <TextLink to="/Fogger-Case-Study-White-Paper.pdf">white paper</TextLink>.
-        </p>
-        <p className="mt-2 text-muted leading-7">
-            See also <TextLink to="/how-it-works">How fogging works</TextLink>, and the{" "}
-            <TextLink to="/how-it-works#glossary">glossary</TextLink>.
-        </p>
+      <ol className="list-decimal space-y-3 pl-5 leading-6">
+        <li>
+        <TextLink to="https://en.wikipedia.org/wiki/Density_of_air">Density of Air</TextLink>. Wikipedia.
+        </li>
+        <li>
+        <TextLink to="https://en.wikipedia.org/wiki/Knudsen_layer">Knudsen layer</TextLink>. Wikipedia.
+        </li>
+        <li>
+        <TextLink to="https://en.wikipedia.org/wiki/Arden_Buck_equation">Arden Buck Equation</TextLink>. Wikipedia.
+        </li>
+        <li>
+        <TextLink to="https://en.wikipedia.org/wiki/Clausius%E2%80%93Clapeyron_relation">Clausius-Clapeyron relation</TextLink>. Wikipedia.
+        </li>
+        <li>
+        <TextLink to="https://www.mhtlab.uwaterloo.ca/pdf_reports/mhtl_G01.pdf">Properties of Dry Air at One Atmosphere</TextLink>.
+        F.J. McQuillan, J.R. Culham and M.M. Yovanovich (1984).
+        </li>
+        <li>
+        <TextLink to="https://web.archive.org/web/20120919171021/http://www.lsbu.ac.uk/water/molecule.html">Water Structure and Science: Water molecule structure</TextLink>.
+        Chaplin, Martin. (2 July, 2012). 
+        </li>
+        <li>
+        <TextLink to="https://www.engineeringtoolbox.com/water-vapor-d_979.html">Water Vapor - Specific Heat. Water Vapor - Specific Heat</TextLink>
+        The Engineering Toolbox. (n.d.). 
+        </li>
+        <li>
+        <TextLink to="https://web.archive.org/web/20120807032523/http://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html">Earth Fact Sheet: Terrestrial Atmosphere</TextLink>.
+        NASA Goddard Space Flight Center. Grayzeck, Ed. (17 November, 2010). 
+        </li>
+      </ol>
+      <p className="mt-6 text-muted">
+          Formal citations are available in the accompanying <TextLink to="/case-study">case study</TextLink> and <TextLink to="/Fogger-Case-Study-White-Paper.pdf">white paper</TextLink>.
+      </p>
+      <p className="mt-2 text-muted leading-7">
+          See also <TextLink to="/how-it-works">How fogging works</TextLink>, and the{" "}
+          <TextLink to="/how-it-works#glossary">glossary</TextLink>.
+      </p>
     </div>
   );
 }
